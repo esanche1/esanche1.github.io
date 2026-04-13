@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Edward Sanchez — Product Portfolio</title>
   <meta name="description" content="Software engineer building products at the intersection of marketing, data science, and real-time systems." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
       --bg: #0a0e17;
@@ -17,6 +20,8 @@
       --green: #00c853;
       --red: #ff1744;
       --orange: #ff9100;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -24,7 +29,7 @@
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+      font-family: var(--font-body);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
     }
@@ -46,6 +51,7 @@
       justify-content: space-between;
     }
     .nav-brand {
+      font-family: var(--font-mono);
       font-size: 16px;
       font-weight: 700;
       letter-spacing: -0.5px;
@@ -59,9 +65,9 @@
     .nav-links a {
       color: var(--text-secondary);
       text-decoration: none;
-      font-size: 12px;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
       transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--text); }
@@ -71,6 +77,7 @@
       padding: 80px 0 60px;
     }
     .hero-label {
+      font-family: var(--font-mono);
       color: var(--accent);
       font-size: 11px;
       text-transform: uppercase;
@@ -111,12 +118,14 @@
       white-space: nowrap;
     }
     .ticker-label {
+      font-family: var(--font-mono);
       color: var(--text-muted);
       font-size: 10px;
       text-transform: uppercase;
       letter-spacing: 1px;
     }
     .ticker-value {
+      font-family: var(--font-mono);
       font-size: 13px;
       font-weight: 600;
     }
@@ -127,6 +136,7 @@
       padding: 64px 0;
     }
     .products h2 {
+      font-family: var(--font-mono);
       font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 2px;
@@ -165,6 +175,7 @@
       font-weight: 700;
     }
     .product-status {
+      font-family: var(--font-mono);
       font-size: 10px;
       font-weight: 700;
       text-transform: uppercase;
@@ -200,6 +211,7 @@
       margin-bottom: 20px;
     }
     .stack-tag {
+      font-family: var(--font-mono);
       font-size: 10px;
       color: var(--text-muted);
       background: var(--bg);
@@ -221,12 +233,14 @@
       gap: 2px;
     }
     .metric-label {
+      font-family: var(--font-mono);
       font-size: 10px;
       color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
     .metric-value {
+      font-family: var(--font-mono);
       font-size: 14px;
       font-weight: 600;
     }
@@ -254,6 +268,7 @@
       border-top: 1px solid var(--border);
     }
     .about h2 {
+      font-family: var(--font-mono);
       font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 2px;
@@ -303,6 +318,7 @@
     }
     footer p {
       color: var(--text-muted);
+      font-family: var(--font-mono);
       font-size: 11px;
     }
 
@@ -338,11 +354,11 @@
     <div class="container">
       <p class="hero-label">Product Portfolio</p>
       <h1>
-        I build software that turns<br />
-        <span class="accent">data into decisions.</span>
+        Engineering lead by day.<br />
+        <span class="accent">Building products at night.</span>
       </h1>
       <p>
-        Senior software engineer focused on marketing technology, real-time data systems, and consumer platforms. Based in Chicago.
+        Director of Data Ops at a $200M+ media agency. On the side, I build tools I wish existed — a trading desk for ad spend, a ticket price tracker for Chicago, and open source stuff along the way.
       </p>
     </div>
   </section>
@@ -380,9 +396,7 @@
             <span class="product-status status-live">Live</span>
           </div>
           <p class="product-tagline">
-            Media trading desk that presents advertising spend as a financial portfolio.
-            Campaigns are positions, budgets are AUM, CPM trends are market prices,
-            and Media Mix Model outputs are trading signals. Bloomberg terminal for marketing dollars.
+            What if your marketing budget looked like a brokerage account? Campaigns are positions, budgets are AUM, and a Bayesian MMM tells you where to buy, hold, or sell. I built this because the mid-market deserves the same tooling that enterprise trading desks charge $500K/mo for.
           </p>
           <div class="product-stack">
             <span class="stack-tag">React</span>
@@ -424,9 +438,7 @@
             <span class="product-status status-beta">Beta</span>
           </div>
           <p class="product-tagline">
-            Chicago ticket aggregator that compares prices across marketplaces and social media in real time.
-            Find the best deals on concerts, sports, and events with automated SMS price alerts
-            when tickets drop below your target.
+            Scrapes ticket prices across marketplaces and social media for Chicago events. Set a target price for a show and get a text when it drops. Born from paying too much for concert tickets one too many times.
           </p>
           <div class="product-stack">
             <span class="stack-tag">Next.js</span>
@@ -463,9 +475,7 @@
             <span class="product-status status-oss">Open Source</span>
           </div>
           <p class="product-tagline">
-            Object-oriented validation framework for ColdFusion. Define your validation rules once
-            in XML, JSON, or ColdFusion code and get automatic client-side and server-side validation
-            generated from a single source of truth. Apache 2.0 licensed.
+            Validation framework for ColdFusion — define your rules once and get client + server validation generated automatically. One of my earlier open source projects that's still kicking around. Apache 2.0.
           </p>
           <div class="product-stack">
             <span class="stack-tag">ColdFusion</span>
@@ -502,9 +512,7 @@
       <h2>About</h2>
       <div class="about-grid">
         <p>
-          Senior software engineer with experience across the full media buying stack.
-          I build products that bridge the gap between marketing operations and financial rigor —
-          turning opaque ad spend into transparent, data-driven portfolio management.
+          I run data operations at a media agency managing $200M+ in annual ad spend — building the pipelines, models, and internal tools that keep it all moving. Nights and weekends I'm shipping my own products. MarketThis came from seeing how badly mid-market companies need the same tooling that enterprise desks take for granted.
         </p>
         <div class="about-links">
           <a href="https://github.com/esanche1">
