@@ -15,7 +15,7 @@
   <meta name="description" content="Edward Senay-Sanchez — Software engineer building products at the intersection of marketing, data science, and real-time systems." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
       --bg: #0a0e17;
@@ -28,7 +28,7 @@
       --green: #00c853;
       --red: #ff1744;
       --orange: #ff9100;
-      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
     }
 
@@ -208,6 +208,79 @@
       border-color: var(--accent);
       box-shadow: 0 4px 24px rgba(33, 150, 243, 0.08), 0 0 0 1px rgba(33, 150, 243, 0.15);
       transform: translateY(-2px);
+    }
+
+    .product-card.featured {
+      border-color: rgba(33, 150, 243, 0.25);
+      background: linear-gradient(135deg, var(--card) 0%, rgba(33, 150, 243, 0.04) 100%);
+      position: relative;
+    }
+    .product-card.featured::before {
+      content: 'FEATURED';
+      position: absolute;
+      top: 16px;
+      right: 32px;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--accent);
+      opacity: 0.5;
+    }
+    .product-card.featured:hover {
+      box-shadow: 0 8px 32px rgba(33, 150, 243, 0.12), 0 0 0 1px rgba(33, 150, 243, 0.25);
+    }
+
+    .product-flow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+      padding: 14px 16px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+    .flow-step {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+    .flow-arrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .product-signals {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .signal-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+    }
+    .signal-buy {
+      color: var(--green);
+      background: rgba(0, 200, 83, 0.1);
+      border: 1px solid rgba(0, 200, 83, 0.2);
+    }
+    .signal-sell {
+      color: var(--red);
+      background: rgba(255, 23, 68, 0.1);
+      border: 1px solid rgba(255, 23, 68, 0.2);
+    }
+    .signal-hold {
+      color: var(--orange);
+      background: rgba(255, 145, 0, 0.1);
+      border: 1px solid rgba(255, 145, 0, 0.2);
     }
 
     .product-header {
@@ -423,7 +496,7 @@
         <span class="accent">Building products at night.</span>
       </h1>
       <p>
-        Director of Data Ops at a $200M+ media agency. On the side, I build tools I wish existed — a trading desk for ad spend, a ticket price tracker for Chicago, and open source stuff along the way.
+        Director of Data Ops at a $200M+ media agency. On the side, I build tools I wish existed — a marketing operating system for mid-market companies, a ticket price tracker for Chicago, and open source stuff along the way.
       </p>
     </div>
   </section>
@@ -455,43 +528,58 @@
       <div class="product-grid">
 
         <!-- MarketThis.io -->
-        <div class="product-card">
+        <div class="product-card featured">
           <div class="product-header">
             <div class="product-name">MarketThis.io</div>
             <span class="product-status status-live">Live</span>
           </div>
           <p class="product-tagline">
-            What if your marketing budget looked like a brokerage account? Campaigns are positions, budgets are AUM, and attribution models tell you where to buy, hold, or sell. I built this because the mid-market deserves the same tooling that enterprise trading desks charge $500K/mo for.
+            The marketing operating system for companies spending $10K–$200K/mo on ads. Connect your ad accounts and get a complete marketing operation — attribution, signals, budget optimization, execution — running in minutes. Not a dashboard. An operating system for marketing spend.
           </p>
+          <div class="product-flow">
+            <span class="flow-step">Connect ad accounts</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-step">Portfolio view of all spend</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-step">Attribution + signals</span>
+            <span class="flow-arrow">→</span>
+            <span class="flow-step">One-click budget execution</span>
+          </div>
+          <div class="product-signals">
+            <span class="signal-tag signal-buy">BUY</span>
+            <span class="signal-tag signal-sell">SELL</span>
+            <span class="signal-tag signal-hold">HOLD</span>
+          </div>
           <div class="product-stack">
             <span class="stack-tag">React</span>
+            <span class="stack-tag">Vite</span>
             <span class="stack-tag">TypeScript</span>
+            <span class="stack-tag">Tailwind v4</span>
             <span class="stack-tag">FastAPI</span>
-            <span class="stack-tag">PostgreSQL</span>
-            <span class="stack-tag">PyMC-Marketing</span>
-            <span class="stack-tag">Tailwind</span>
-            <span class="stack-tag">Docker</span>
+            <span class="stack-tag">SQLModel</span>
+            <span class="stack-tag">Alembic</span>
+            <span class="stack-tag">Railway</span>
           </div>
           <div class="product-metrics">
             <div class="metric">
               <span class="metric-label">Type</span>
-              <span class="metric-value">SaaS + Analytics</span>
+              <span class="metric-value">Marketing OS</span>
             </div>
             <div class="metric">
-              <span class="metric-label">Channels</span>
-              <span class="metric-value">6</span>
+              <span class="metric-label">Ad Platforms</span>
+              <span class="metric-value">Google · Meta · TikTok · LinkedIn</span>
             </div>
             <div class="metric">
-              <span class="metric-label">Connectors</span>
-              <span class="metric-value">8 Built</span>
+              <span class="metric-label">Revenue</span>
+              <span class="metric-value">Shopify · Stripe · HubSpot</span>
             </div>
             <div class="metric">
               <span class="metric-label">Focus</span>
               <span class="metric-value green">Attribution, Contribution + Execution</span>
             </div>
           </div>
-          <a class="product-link" href="https://web-production-92a25.up.railway.app/demo" target="_blank" rel="noopener">
-            View live demo
+          <a class="product-link" href="https://www.marketthis.io" target="_blank" rel="noopener">
+            Visit marketthis.io
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
           </a>
         </div>
@@ -578,14 +666,14 @@
       <h2>About</h2>
       <div class="about-grid">
         <p>
-          I run data operations at a media agency managing $200M+ in annual ad spend — building the pipelines, models, and internal tools that keep it all moving. Nights and weekends I'm shipping my own products. MarketThis came from seeing how badly mid-market companies need the same tooling that enterprise desks take for granted.
+          I run data operations at a media agency managing $200M+ in annual ad spend — building the pipelines, models, and internal tools that keep it all moving. Nights and weekends I'm shipping my own products. MarketThis came from seeing how badly mid-market companies need a real marketing operating system — not another dashboard, but attribution, signals, and execution in one place.
         </p>
         <div class="about-links">
           <a href="https://github.com/esanche1">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
             github.com/esanche1
           </a>
-          <a href="https://web-production-92a25.up.railway.app/demo">
+          <a href="https://www.marketthis.io">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
             marketthis.io
           </a>
