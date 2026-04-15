@@ -121,17 +121,17 @@ function Hero() {
           </span>
         </div>
         <h1 className="font-display font-800 text-5xl sm:text-6xl lg:text-7xl tracking-tight leading-[1.05] text-ink-900 mb-6">
-          Engineering lead
+          Data leader
           <br />
           by day. <span className="text-purple-500">Building</span>
           <br />
           <span className="text-purple-500">products</span> at night.
         </h1>
         <p className="text-lg text-ink-500 leading-relaxed max-w-lg">
-          Director of Data Ops at a $200M+ media agency. On the side, I build
-          tools I wish existed. Right now that's a platform for managing ad
-          spend, a ticket price tracker for Chicago, and a data validation
-          engine.
+          Director of Data Operations at a $200M+ media agency. I lead a team
+          of engineers, ML scientists, and designers building the pipelines,
+          models, and platforms that power 20% YoY growth. Nights and weekends
+          I ship my own products.
         </p>
       </div>
     </section>
@@ -338,13 +338,14 @@ export default function App() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             <p className="text-ink-500 leading-relaxed">
-              I run data operations at a media agency managing $200M+ in annual
-              ad spend. That means building the pipelines, models, and internal
-              tools that keep it all running. Nights and weekends I'm shipping my
-              own products. MarketThis came from watching mid-market companies
-              struggle with the same thing over and over. They're spending real
-              money on ads but have no good way to see what's working or act on
-              it.
+              I lead data operations at Scale Marketing, a media agency managing
+              $200M+ in annual ad spend through 20% YoY growth. My team of
+              engineers, ML scientists, and designers builds the data pipelines,
+              ML models, and internal platforms that power it all. From Airflow
+              orchestration and EKS infrastructure to production Media Mix Models
+              and causal analysis. Nights and weekends I ship my own products.
+              MarketThis came from watching mid-market companies spend real money
+              on ads with no good way to see what's working or act on it.
             </p>
             <div className="flex flex-col gap-3">
               <a
