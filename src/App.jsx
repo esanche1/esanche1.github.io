@@ -54,42 +54,80 @@ const products = [
   },
 ];
 
-const categories = ["All", "Marketing", "Consumer", "Data"];
+const navLinks = [
+  { href: "#work", label: "Products" },
+  { href: "#about", label: "About" },
+  { href: "https://github.com/esanche1", label: "GitHub" },
+];
 
 function Header() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const scrollToTop = () =>
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  const navLinkClass =
+    "text-sm font-500 text-ink-400 hover:text-ink-900 transition-colors duration-200";
+
   return (
     <header className="sticky top-0 z-50 bg-warm-50/80 backdrop-blur-xl border-b border-warm-200/60">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <a href="#" className="font-display font-800 text-lg tracking-tight text-ink-900">
-          E<span className="text-purple-500">.</span> Senay-Sanchez
-        </a>
-        <nav className="hidden sm:flex items-center gap-8">
-          <a
-            href="#work"
-            className="text-sm font-500 text-ink-400 hover:text-ink-900 transition-colors duration-200"
-          >
-            Products
-          </a>
-          <a
-            href="#about"
-            className="text-sm font-500 text-ink-400 hover:text-ink-900 transition-colors duration-200"
-          >
-            About
-          </a>
-          <a
-            href="https://github.com/esanche1"
-            className="text-sm font-500 text-ink-400 hover:text-ink-900 transition-colors duration-200"
-          >
-            GitHub
-          </a>
-        </nav>
-        <a
-          href="mailto:edcsanchez@yahoo.com"
-          className="text-sm font-600 text-white bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded-lg transition-colors duration-200"
+        <button
+          type="button"
+          onClick={scrollToTop}
+          className="font-display font-800 text-lg tracking-tight text-ink-900 cursor-pointer"
         >
-          Get in Touch
-        </a>
+          E<span className="text-purple-500">.</span> Senay-Sanchez
+        </button>
+        <nav className="hidden sm:flex items-center gap-8">
+          {navLinks.map((l) => (
+            <a key={l.href} href={l.href} className={navLinkClass}>
+              {l.label}
+            </a>
+          ))}
+        </nav>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setMenuOpen((v) => !v)}
+            aria-label="Toggle navigation menu"
+            aria-expanded={menuOpen}
+            aria-controls="mobile-nav"
+            className="sm:hidden p-2 -mr-2 rounded-lg text-ink-700 hover:bg-warm-100 transition-colors duration-200 cursor-pointer"
+          >
+            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              {menuOpen ? (
+                <path d="M6 6l12 12M6 18L18 6" />
+              ) : (
+                <path d="M4 7h16M4 12h16M4 17h16" />
+              )}
+            </svg>
+          </button>
+          <a
+            href="mailto:edcsanchez@yahoo.com"
+            className="text-sm font-600 text-white bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded-lg transition-colors duration-200"
+          >
+            Get in Touch
+          </a>
+        </div>
       </div>
+      {menuOpen && (
+        <nav
+          id="mobile-nav"
+          className="sm:hidden border-t border-warm-200/60 bg-warm-50/95 backdrop-blur-xl"
+        >
+          <div className="max-w-6xl mx-auto px-6 py-4 flex flex-col gap-1">
+            {navLinks.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                onClick={() => setMenuOpen(false)}
+                className="text-sm font-500 text-ink-700 hover:text-purple-600 py-2 transition-colors duration-200"
+              >
+                {l.label}
+              </a>
+            ))}
+          </div>
+        </nav>
+      )}
     </header>
   );
 }
@@ -171,30 +209,6 @@ function Hero() {
         </p>
       </div>
     </section>
-  );
-}
-
-function FilterBar({ active, onChange }) {
-  return (
-    <div className="flex items-center gap-2">
-      {categories.map((cat) => (
-        <button
-          type="button"
-          key={cat}
-          onClick={() => onChange(cat)}
-          className={`
-            px-4 py-2 rounded-lg text-sm font-500 transition-all duration-200 cursor-pointer
-            ${
-              active === cat
-                ? "bg-purple-600 text-white shadow-sm shadow-purple-300/40 border border-purple-600"
-                : "bg-white text-ink-500 hover:text-ink-900 hover:bg-warm-100 border border-warm-200/80"
-            }
-          `}
-        >
-          {cat}
-        </button>
-      ))}
-    </div>
   );
 }
 
@@ -319,13 +333,6 @@ function Footer() {
 }
 
 export default function App() {
-  const [activeFilter, setActiveFilter] = useState("All");
-
-  const filtered =
-    activeFilter === "All"
-      ? products
-      : products.filter((p) => p.category === activeFilter);
-
   return (
     <div className="min-h-screen">
       <Header />
@@ -333,26 +340,17 @@ export default function App() {
       <StatBand />
 
       <section id="work" className="max-w-6xl mx-auto px-6 pt-24 pb-24">
-        {/* Section header + filter bar */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
-          <div>
-            <h2 className="font-display font-700 text-2xl text-ink-900 tracking-tight">
-              Featured Work
-            </h2>
-            <p className="text-sm text-ink-400 mt-1">
-              {filtered.length} {filtered.length === 1 ? "project" : "projects"}
-              {activeFilter !== "All" ? ` in ${activeFilter}` : ""}
-            </p>
-          </div>
-          <FilterBar active={activeFilter} onChange={setActiveFilter} />
+        <div className="mb-10">
+          <h2 className="font-display font-700 text-2xl text-ink-900 tracking-tight">
+            Featured Work
+          </h2>
+          <p className="text-sm text-ink-400 mt-1">
+            {products.length} products shipped
+          </p>
         </div>
 
-        {/* Product grid */}
-        <div
-          key={activeFilter}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          {filtered.map((product, i) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {products.map((product, i) => (
             <ProductCard key={product.id} product={product} index={i} />
           ))}
         </div>
