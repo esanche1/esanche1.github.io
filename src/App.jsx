@@ -60,6 +60,12 @@ const navLinks = [
   { href: "https://github.com/esanche1", label: "GitHub" },
 ];
 
+const isExternal = (href) => /^https?:\/\//.test(href);
+const externalProps = (href) =>
+  isExternal(href)
+    ? { target: "_blank", rel: "noopener noreferrer" }
+    : {};
+
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const scrollToTop = () =>
@@ -79,7 +85,7 @@ function Header() {
         </button>
         <nav className="hidden sm:flex items-center gap-8">
           {navLinks.map((l) => (
-            <a key={l.href} href={l.href} className={navLinkClass}>
+            <a key={l.href} href={l.href} className={navLinkClass} {...externalProps(l.href)}>
               {l.label}
             </a>
           ))}
@@ -121,6 +127,7 @@ function Header() {
                 href={l.href}
                 onClick={() => setMenuOpen(false)}
                 className="text-sm font-500 text-ink-700 hover:text-purple-600 py-2 transition-colors duration-200"
+                {...externalProps(l.href)}
               >
                 {l.label}
               </a>
@@ -310,12 +317,16 @@ function Footer() {
         <div className="flex items-center gap-6">
           <a
             href="https://github.com/esanche1"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-xs text-ink-400 hover:text-purple-600 transition-colors duration-200"
           >
             GitHub
           </a>
           <a
             href="https://www.marketthis.io"
+            target="_blank"
+            rel="noopener noreferrer"
             className="text-xs text-ink-400 hover:text-purple-600 transition-colors duration-200"
           >
             MarketThis.io
