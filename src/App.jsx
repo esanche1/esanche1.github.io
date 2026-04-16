@@ -94,6 +94,58 @@ function Header() {
   );
 }
 
+const stats = [
+  { value: "$200M+", label: "Ad spend managed annually" },
+  { value: "20%", label: "Year-over-year growth driven" },
+  { value: "3", label: "Products shipped solo" },
+];
+
+function StatBand() {
+  return (
+    <section className="relative overflow-hidden bg-ink-900 text-white">
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(55% 75% at 50% 50%, rgba(155,109,255,0.28), transparent 70%)",
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 opacity-[0.06] pointer-events-none"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 1px 1px, white 1px, transparent 0)",
+          backgroundSize: "28px 28px",
+        }}
+      />
+      <div className="relative max-w-6xl mx-auto px-6 py-20 lg:py-28">
+        <p className="text-[11px] font-600 tracking-[0.22em] uppercase text-purple-300 mb-12 text-center">
+          By the numbers
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-y-14 md:gap-y-0">
+          {stats.map((s, i) => (
+            <div
+              key={s.label}
+              className={`text-center px-4 md:px-8 ${
+                i > 0 ? "md:border-l md:border-white/10" : ""
+              }`}
+            >
+              <p className="font-display font-800 tracking-tight leading-[0.95] bg-gradient-to-b from-white to-purple-200 bg-clip-text text-transparent text-6xl sm:text-7xl lg:text-8xl">
+                {s.value}
+              </p>
+              <p className="mt-5 text-sm font-500 tracking-wide text-ink-300 max-w-[22ch] mx-auto">
+                {s.label}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Hero() {
   return (
     <section className="max-w-6xl mx-auto px-6 pt-24 pb-20 animate-fade-up">
@@ -278,8 +330,9 @@ export default function App() {
     <div className="min-h-screen">
       <Header />
       <Hero />
+      <StatBand />
 
-      <section id="work" className="max-w-6xl mx-auto px-6 pb-24">
+      <section id="work" className="max-w-6xl mx-auto px-6 pt-24 pb-24">
         {/* Section header + filter bar */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
           <div>
