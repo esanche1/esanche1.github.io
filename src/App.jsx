@@ -1,4 +1,7 @@
 import { useState } from "react";
+import marketThisImg from "./assets/marketthis.webp";
+import chiTixImg from "./assets/chitix.webp";
+import validateThisImg from "./assets/validatethis.webp";
 
 const products = [
   {
@@ -7,21 +10,15 @@ const products = [
     description:
       "Built for companies spending $10K to $200K/mo on ads. Connect your ad accounts and see what's working, what's not, and where to move budget. Handles attribution, signals, and budget moves so you're not bouncing between five tabs.",
     category: "Marketing",
-    status: "Live",
-    gradient: "from-violet-500 via-purple-600 to-indigo-700",
+    status: "Beta",
+    image: marketThisImg,
     url: "https://www.marketthis.io",
     stack: ["React", "Vite", "TypeScript", "Tailwind v4", "FastAPI", "SQLModel", "Alembic", "Railway"],
     metrics: [
-      { label: "Type", value: "Marketing OS" },
-      { label: "Ad Platforms", value: "Google, Meta, TikTok, LinkedIn" },
-      { label: "Revenue", value: "Shopify, Stripe, HubSpot" },
+      { label: "Stage", value: "Beta" },
+      { label: "Target Spend", value: "$10K–$200K/mo" },
+      { label: "Ad Platforms", value: "4 connected" },
     ],
-    icon: (
-      <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <path d="M3 3v18h18" />
-        <path d="M7 16l4-8 4 4 5-9" />
-      </svg>
-    ),
   },
   {
     id: 2,
@@ -30,21 +27,14 @@ const products = [
       "Tracks ticket prices across marketplaces and social media for Chicago events. Pick a show, set a target price, and get a text when it drops. Built after overpaying for concert tickets one too many times.",
     category: "Consumer",
     status: "Live",
-    gradient: "from-amber-400 via-orange-500 to-rose-500",
+    image: chiTixImg,
     url: "https://chitix-production.up.railway.app/",
     stack: ["Next.js", "TypeScript", "Drizzle ORM", "Twilio", "Docker", "Web Scraping"],
     metrics: [
-      { label: "Type", value: "Consumer App" },
-      { label: "Market", value: "Chicago" },
-      { label: "Alerts", value: "SMS Price Drops" },
+      { label: "Events Live", value: "50+ today" },
+      { label: "Marketplaces", value: "6 tracked" },
+      { label: "Alerts", value: "SMS, real-time" },
     ],
-    icon: (
-      <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <rect x="2" y="4" width="20" height="16" rx="2" />
-        <path d="M2 10h20" />
-        <path d="M10 4v16" />
-      </svg>
-    ),
   },
   {
     id: 3,
@@ -53,20 +43,14 @@ const products = [
       "Catches bad data before it causes problems. Works across databases, APIs, spreadsheets, and CRMs. Set up rules that flag and fix errors automatically. Connects to Postgres, Snowflake, Salesforce, or just a CSV upload.",
     category: "Data",
     status: "Live",
-    gradient: "from-emerald-400 via-teal-500 to-cyan-600",
+    image: validateThisImg,
     url: "https://www.validatethis.io",
     stack: ["Next.js", "TypeScript", "PostgreSQL", "AI Rules Engine", "REST API"],
     metrics: [
-      { label: "Type", value: "SaaS" },
-      { label: "Scale", value: "10B+ Rows" },
-      { label: "Integrations", value: "8+ Platforms" },
+      { label: "Rows Validated", value: "10B+" },
+      { label: "Accuracy", value: "97.4%" },
+      { label: "Teams", value: "20+" },
     ],
-    icon: (
-      <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <path d="M9 12l2 2 4-4" />
-        <path d="M12 3a9 9 0 110 18 9 9 0 010-18z" />
-      </svg>
-    ),
   },
 ];
 
@@ -172,30 +156,20 @@ function ProductCard({ product, index }) {
       style={{ animationDelay: `${index * 70}ms` }}
     >
       {/* Image area - 3:2 ratio */}
-      <div className="relative aspect-[3/2] overflow-hidden">
-        <div
-          className={`absolute inset-0 bg-gradient-to-br ${product.gradient} opacity-90
-                      transition-transform duration-500 ease-out group-hover:scale-105`}
+      <div className="relative aspect-[3/2] overflow-hidden bg-ink-900">
+        <img
+          src={product.image}
+          alt={`${product.title} product screenshot`}
+          loading="lazy"
+          className="absolute inset-0 w-full h-full object-cover object-top
+                     transition-transform duration-500 ease-out group-hover:scale-[1.03]"
         />
-        <div
-          className="absolute inset-0 opacity-[0.08]"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 1px 1px, white 1px, transparent 0)",
-            backgroundSize: "24px 24px",
-          }}
-        />
+        <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-black/30 to-transparent pointer-events-none" />
         {/* Status badge */}
         <div className="absolute top-4 right-4">
-          <span className="text-[10px] font-600 tracking-wider uppercase text-white/90 bg-white/20 backdrop-blur-sm px-2.5 py-1 rounded-full">
+          <span className="text-[10px] font-600 tracking-wider uppercase text-white bg-black/40 backdrop-blur-sm px-2.5 py-1 rounded-full border border-white/10">
             {product.status}
           </span>
-        </div>
-        {/* Centered icon */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center text-white shadow-lg shadow-black/5 transition-transform duration-300 group-hover:scale-110">
-            {product.icon}
-          </div>
         </div>
       </div>
 
