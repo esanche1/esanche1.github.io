@@ -16,7 +16,6 @@ const products = [
     stack: ["React", "Vite", "TypeScript", "Tailwind v4", "FastAPI", "SQLModel", "Alembic", "Railway"],
     metrics: [
       { label: "Stage", value: "Beta" },
-      { label: "Target Spend", value: "$10K–$200K/mo" },
       { label: "Ad Platforms", value: "4 connected" },
     ],
   },
