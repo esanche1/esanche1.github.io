@@ -8,7 +8,7 @@ const products = [
     id: 1,
     title: "MarketThis.io",
     description:
-      "The Vercel of marketing. If you can ship a product, you should be able to market one — brand, build, and distribute from a single platform, not six tabs and a consultant. MarketThis handles the attribution, signals, and budget moves so a solo founder operates like a growth team of ten.",
+      "The Vercel of marketing. If you can ship a product, you should be able to market one. Brand, build, and distribute from a single platform, not six tabs and a consultant. MarketThis handles the attribution, signals, and budget moves so a solo founder operates like a growth team of ten.",
     category: "Platform",
     status: "Beta",
     image: marketThisImg,
@@ -227,10 +227,10 @@ function WorkMasthead() {
     <div className="max-w-6xl mx-auto px-6 mb-16 md:mb-24">
       <div className="flex items-baseline justify-between border-t border-ink-900/90 pt-5">
         <span className="text-[11px] font-600 tracking-[0.3em] uppercase text-ink-700 tabular-nums">
-          Selected Work — Vol. 01
+          Selected Work / Vol. 01
         </span>
         <span className="text-[11px] font-500 tracking-[0.22em] uppercase text-ink-400 tabular-nums">
-          Three Titles · 2024–2025
+          Three Titles · 2024 / 2025
         </span>
       </div>
       <div className="mt-10 grid grid-cols-12 items-end gap-x-8 gap-y-8">
@@ -239,7 +239,7 @@ function WorkMasthead() {
           Hours<span className="text-purple-500">.</span>
         </h2>
         <p className="col-span-12 md:col-span-4 text-[15px] leading-relaxed text-ink-500 md:pb-3 max-w-xs md:ml-auto">
-          A short archive of products shipped solo, after the day job. One cover feature — two in support.
+          A short archive of products shipped solo, after the day job. One cover feature. Two in support.
         </p>
       </div>
     </div>
@@ -253,7 +253,7 @@ function FeatureCaseStudy({ product }) {
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex items-baseline justify-between border-t border-ink-900/90 pt-5 mb-10">
           <span className="text-[11px] font-600 tracking-[0.3em] uppercase text-ink-700 tabular-nums">
-            № 01 — Cover Feature
+            № 01 / Cover Feature
           </span>
           <span className="text-[11px] font-500 tracking-[0.22em] uppercase text-ink-400">
             {product.category} / {product.status}
@@ -427,7 +427,7 @@ function SupportingWork({ items }) {
     <div className="max-w-6xl mx-auto px-6">
       <div className="flex items-baseline justify-between border-t border-ink-900/90 pt-5 mb-14 md:mb-16">
         <span className="text-[11px] font-600 tracking-[0.3em] uppercase text-ink-700">
-          Also Shipped — In Support
+          Also Shipped / In Support
         </span>
         <span className="text-[11px] font-500 tracking-[0.22em] uppercase text-ink-400 tabular-nums">
           № 02 / 03
