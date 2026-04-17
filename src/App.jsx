@@ -8,14 +8,15 @@ const products = [
     id: 1,
     title: "MarketThis.io",
     description:
-      "Built for companies spending $10K to $200K/mo on ads. Connect your ad accounts and see what's working, what's not, and where to move budget. Handles attribution, signals, and budget moves so you're not bouncing between five tabs.",
-    category: "Marketing",
+      "The Vercel of marketing. If you can ship a product, you should be able to market one — brand, build, and distribute from a single platform, not six tabs and a consultant. MarketThis handles the attribution, signals, and budget moves so a solo founder operates like a growth team of ten.",
+    category: "Platform",
     status: "Beta",
     image: marketThisImg,
     url: "https://www.marketthis.io",
     stack: ["React", "Vite", "TypeScript", "Tailwind v4", "FastAPI", "SQLModel", "Alembic", "Railway"],
     metrics: [
       { label: "Stage", value: "Beta" },
+      { label: "Scope", value: "Brand · Build · Market" },
       { label: "Ad Platforms", value: "4 connected" },
     ],
   },
