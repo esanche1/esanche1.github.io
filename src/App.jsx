@@ -219,86 +219,237 @@ function Hero() {
   );
 }
 
-function ProductCard({ product, index }) {
+const cleanHost = (url) =>
+  url.replace(/^https?:\/\/(www\.)?/, "").replace(/\/.*$/, "");
+
+function WorkMasthead() {
   return (
-    <article
-      className="group bg-white rounded-2xl border border-warm-200/80 overflow-hidden
-                 transition-all duration-300 ease-out
-                 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-purple-900/[0.04] hover:border-purple-200/60
-                 animate-scale-in flex flex-col"
-      style={{ animationDelay: `${index * 70}ms` }}
-    >
-      {/* Image area - 3:2 ratio */}
-      <div className="relative aspect-[3/2] overflow-hidden bg-ink-900">
-        <img
-          src={product.image}
-          alt={`${product.title} product screenshot`}
-          loading="lazy"
-          className="absolute inset-0 w-full h-full object-cover object-top
-                     transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-        />
-        <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-black/30 to-transparent pointer-events-none" />
-        {/* Status badge */}
-        <div className="absolute top-4 right-4">
-          <span className="text-[10px] font-600 tracking-wider uppercase text-white bg-black/40 backdrop-blur-sm px-2.5 py-1 rounded-full border border-white/10">
-            {product.status}
+    <div className="max-w-6xl mx-auto px-6 mb-16 md:mb-24">
+      <div className="flex items-baseline justify-between border-t border-ink-900/90 pt-5">
+        <span className="text-[11px] font-600 tracking-[0.3em] uppercase text-ink-700 tabular-nums">
+          Selected Work — Vol. 01
+        </span>
+        <span className="text-[11px] font-500 tracking-[0.22em] uppercase text-ink-400 tabular-nums">
+          Three Titles · 2024–2025
+        </span>
+      </div>
+      <div className="mt-10 grid grid-cols-12 items-end gap-x-8 gap-y-8">
+        <h2 className="col-span-12 md:col-span-8 font-display font-800 tracking-[-0.045em] leading-[0.86] text-ink-900 text-6xl sm:text-7xl lg:text-[8.5rem]">
+          After<br />
+          Hours<span className="text-purple-500">.</span>
+        </h2>
+        <p className="col-span-12 md:col-span-4 text-[15px] leading-relaxed text-ink-500 md:pb-3 max-w-xs md:ml-auto">
+          A short archive of products shipped solo, after the day job. One cover feature — two in support.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function FeatureCaseStudy({ product }) {
+  const host = cleanHost(product.url);
+  return (
+    <article className="relative mb-24 md:mb-32 animate-fade-up">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="flex items-baseline justify-between border-t border-ink-900/90 pt-5 mb-10">
+          <span className="text-[11px] font-600 tracking-[0.3em] uppercase text-ink-700 tabular-nums">
+            № 01 — Cover Feature
+          </span>
+          <span className="text-[11px] font-500 tracking-[0.22em] uppercase text-ink-400">
+            {product.category} / {product.status}
           </span>
         </div>
       </div>
 
-      {/* Content */}
-      <div className="p-5 flex flex-col flex-1">
-        {/* Category tag */}
-        <span className="inline-block self-start text-[11px] font-600 tracking-wide uppercase text-purple-600 bg-purple-50 px-2.5 py-1 rounded-md mb-3">
-          {product.category}
-        </span>
-        {/* Title */}
-        <h3 className="font-display font-700 text-lg text-ink-900 mb-2 tracking-tight">
-          {product.title}
-        </h3>
-        {/* Description */}
-        <p className="text-sm text-ink-400 leading-relaxed mb-4 line-clamp-3">
-          {product.description}
-        </p>
-
-        {/* Tech stack */}
-        <div className="flex flex-wrap gap-1.5 mb-4">
-          {product.stack.map((tech) => (
-            <span
-              key={tech}
-              className="text-[10px] font-500 text-ink-500 bg-warm-50 border border-warm-200/80 px-2 py-0.5 rounded"
-            >
-              {tech}
-            </span>
-          ))}
-        </div>
-
-        {/* Metrics */}
-        <div className="flex gap-4 pt-4 mt-auto border-t border-warm-200/60">
-          {product.metrics.map((m) => (
-            <div key={m.label} className="min-w-0">
-              <p className="text-[10px] font-500 uppercase tracking-wide text-ink-300 mb-0.5">
-                {m.label}
-              </p>
-              <p className="text-xs font-600 text-ink-700 truncate">{m.value}</p>
-            </div>
-          ))}
-        </div>
-
-        {/* Button */}
+      <div className="mx-auto w-full max-w-[1600px] px-4 md:px-10">
         <a
           href={product.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-4 w-full text-center text-sm font-600 text-purple-600 bg-purple-50 hover:bg-purple-100 border border-purple-100 hover:border-purple-200 py-2.5 rounded-xl transition-all duration-200 cursor-pointer group-hover:bg-purple-600 group-hover:text-white group-hover:border-purple-600 block"
+          className="group block"
+          aria-label={`Visit ${product.title}`}
         >
-          View Details
-          <svg className="inline-block w-3.5 h-3.5 ml-1.5 -mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M7 17L17 7M17 7H7M17 7v10" />
-          </svg>
+          <div className="relative aspect-[16/9] overflow-hidden rounded-sm bg-ink-900 shadow-[0_40px_100px_-30px_rgba(26,22,37,0.4)]">
+            <img
+              src={product.image}
+              alt={`${product.title} product screenshot`}
+              className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-[900ms] ease-out group-hover:scale-[1.02]"
+            />
+            <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/20 to-transparent pointer-events-none" />
+            <div className="absolute bottom-5 left-5 right-5 flex items-baseline justify-between text-white/80 text-[10px] font-500 tracking-[0.3em] uppercase">
+              <span className="tabular-nums">{product.title}</span>
+              <span className="hidden sm:inline opacity-60 tabular-nums">
+                {host} ↗
+              </span>
+            </div>
+          </div>
         </a>
       </div>
+
+      <div className="max-w-6xl mx-auto px-6 mt-12 md:mt-20">
+        <div className="grid grid-cols-12 gap-x-8 gap-y-12">
+          <div className="col-span-12 md:col-span-7">
+            <h3 className="font-display font-800 tracking-[-0.035em] leading-[0.95] text-ink-900 text-5xl sm:text-6xl lg:text-[5.5rem]">
+              {product.title.replace(".io", "")}
+              <span className="text-ink-300">.io</span>
+            </h3>
+            <p className="mt-8 text-[17px] leading-[1.7] text-ink-700 max-w-xl first-letter:font-display first-letter:font-800 first-letter:text-[4.5rem] first-letter:leading-[0.82] first-letter:text-purple-500 first-letter:float-left first-letter:mr-3 first-letter:mt-1.5">
+              {product.description}
+            </p>
+            <a
+              href={product.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 mt-10 text-sm font-600 tracking-wide text-ink-900 border-b border-ink-900 pb-1 hover:text-purple-600 hover:border-purple-600 transition-colors duration-200"
+            >
+              Continue on {host}
+              <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M7 17L17 7M17 7H7M17 7v10" />
+              </svg>
+            </a>
+          </div>
+
+          <aside className="col-span-12 md:col-span-4 md:col-start-9">
+            <p className="text-[10px] font-600 tracking-[0.3em] uppercase text-ink-400 mb-4">
+              Data Sheet
+            </p>
+            <dl className="border-t border-ink-900/80">
+              {product.metrics.map((m) => (
+                <div
+                  key={m.label}
+                  className="flex items-baseline justify-between gap-4 border-b border-warm-200 py-3.5"
+                >
+                  <dt className="text-[10px] font-600 tracking-[0.2em] uppercase text-ink-400">
+                    {m.label}
+                  </dt>
+                  <dd className="font-display font-700 text-ink-900 text-[15px] tabular-nums text-right">
+                    {m.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+
+            <div className="mt-8">
+              <p className="text-[10px] font-600 tracking-[0.3em] uppercase text-ink-400 mb-3">
+                Built With
+              </p>
+              <p className="text-[13px] text-ink-700 leading-[1.9]">
+                {product.stack.map((t, i) => (
+                  <span key={t}>
+                    {i > 0 && <span className="text-ink-300 mx-1.5">·</span>}
+                    {t}
+                  </span>
+                ))}
+              </p>
+            </div>
+          </aside>
+        </div>
+      </div>
     </article>
+  );
+}
+
+function SupportingItem({ product, index }) {
+  const isSecond = index === 1;
+  const host = cleanHost(product.url);
+  return (
+    <article
+      className={`col-span-12 md:col-span-6 group ${isSecond ? "md:mt-20" : ""}`}
+    >
+      <div className="flex items-baseline justify-between mb-5">
+        <span className="font-display font-800 text-ink-300 text-[3.25rem] leading-none tabular-nums tracking-[-0.04em]">
+          {String(index + 2).padStart(2, "0")}
+        </span>
+        <span className="text-[10px] font-600 tracking-[0.3em] uppercase text-ink-400">
+          {product.category} · {product.status}
+        </span>
+      </div>
+
+      <a
+        href={product.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block"
+        aria-label={`Visit ${product.title}`}
+      >
+        <div className="relative aspect-[4/3] overflow-hidden bg-ink-900 rounded-sm transition-shadow duration-500 group-hover:shadow-[0_24px_60px_-20px_rgba(26,22,37,0.3)]">
+          <img
+            src={product.image}
+            alt={`${product.title} product screenshot`}
+            loading="lazy"
+            className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-[900ms] ease-out group-hover:scale-[1.03]"
+          />
+        </div>
+      </a>
+
+      <div className="mt-6">
+        <h3 className="font-display font-700 text-3xl text-ink-900 tracking-[-0.02em]">
+          {product.title}
+        </h3>
+        <p className="mt-3 text-[14px] leading-[1.65] text-ink-500 max-w-md">
+          {product.description}
+        </p>
+
+        <dl className="mt-6 flex flex-wrap gap-x-8 gap-y-3 border-t border-warm-200 pt-5">
+          {product.metrics.map((m) => (
+            <div key={m.label}>
+              <dt className="text-[9px] font-600 tracking-[0.22em] uppercase text-ink-400 mb-0.5">
+                {m.label}
+              </dt>
+              <dd className="text-[15px] font-700 font-display text-ink-900 tabular-nums">
+                {m.value}
+              </dd>
+            </div>
+          ))}
+        </dl>
+
+        <div className="mt-5 flex flex-wrap items-center justify-between gap-3 pt-4">
+          <p className="text-[11px] text-ink-400 font-500 tracking-wide max-w-[70%]">
+            {product.stack.slice(0, 4).join(" · ")}
+            {product.stack.length > 4 ? " · …" : ""}
+          </p>
+          <a
+            href={product.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[11px] font-600 tracking-[0.18em] uppercase text-ink-700 border-b border-ink-300 pb-0.5 hover:text-purple-600 hover:border-purple-600 transition-colors"
+          >
+            {host} ↗
+          </a>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function SupportingWork({ items }) {
+  return (
+    <div className="max-w-6xl mx-auto px-6">
+      <div className="flex items-baseline justify-between border-t border-ink-900/90 pt-5 mb-14 md:mb-16">
+        <span className="text-[11px] font-600 tracking-[0.3em] uppercase text-ink-700">
+          Also Shipped — In Support
+        </span>
+        <span className="text-[11px] font-500 tracking-[0.22em] uppercase text-ink-400 tabular-nums">
+          № 02 / 03
+        </span>
+      </div>
+      <div className="grid grid-cols-12 gap-x-10 gap-y-16">
+        {items.map((p, i) => (
+          <SupportingItem key={p.id} product={p} index={i} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function WorkSection() {
+  const [feature, ...rest] = products;
+  return (
+    <section id="work" className="pt-24 pb-28">
+      <WorkMasthead />
+      <FeatureCaseStudy product={feature} />
+      <SupportingWork items={rest} />
+    </section>
   );
 }
 
@@ -350,22 +501,7 @@ export default function App() {
       <Hero />
       <StatBand />
 
-      <section id="work" className="max-w-6xl mx-auto px-6 pt-24 pb-24">
-        <div className="mb-10">
-          <h2 className="font-display font-700 text-2xl text-ink-900 tracking-tight">
-            Featured Work
-          </h2>
-          <p className="text-sm text-ink-400 mt-1">
-            {products.length} products shipped
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {products.map((product, i) => (
-            <ProductCard key={product.id} product={product} index={i} />
-          ))}
-        </div>
-      </section>
+      <WorkSection />
 
       <section id="about" className="max-w-6xl mx-auto px-6 pb-24">
         <div className="border-t border-warm-200/60 pt-16">
