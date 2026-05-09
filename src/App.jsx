@@ -355,7 +355,7 @@ function Footer() {
         </div>
         <div className="flex items-center gap-6 flex-wrap justify-center">
           <a
-            href="https://www.linkedin.com/in/edsenaysanchez/"
+            href="https://www.linkedin.com/in/ed-senay-sanchez-2049402b9/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-xs text-ink-400 hover:text-purple-600 transition-colors duration-200"
@@ -485,7 +485,7 @@ export default function App() {
 
               <div className="flex flex-wrap gap-x-6 gap-y-2 mt-2">
                 <a
-                  href="https://www.linkedin.com/in/edsenaysanchez/"
+                  href="https://www.linkedin.com/in/ed-senay-sanchez-2049402b9/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2.5 text-sm text-ink-500 hover:text-purple-600 transition-colors duration-200 py-1.5"
