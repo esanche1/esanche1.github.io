@@ -109,7 +109,7 @@ function Header() {
             </svg>
           </button>
           <a
-            href="mailto:edcsanchez@yahoo.com"
+            href="#about"
             className="text-sm font-600 text-white bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded-lg transition-colors duration-200"
           >
             Get in Touch
