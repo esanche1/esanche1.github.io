@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local drafts and session artifacts
+/linkedin-about.txt
+/yc-application*.txt
+/.claude/
