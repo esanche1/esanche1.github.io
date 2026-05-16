@@ -51,6 +51,15 @@
   color: var(--color-purple-900);
 }
 
+/* Visible keyboard focus ring on every interactive element. Replaces
+   the browser default (often invisible against the warm palette) with
+   the brand purple. Keyboard-only; mouse focus is not styled. */
+*:focus-visible {
+  outline: 2px solid var(--color-purple-500);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
