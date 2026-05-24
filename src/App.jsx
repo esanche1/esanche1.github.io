@@ -86,7 +86,7 @@ function Header() {
           onClick={scrollToTop}
           className="font-display font-800 text-lg tracking-tight text-ink-900 cursor-pointer"
         >
-          E<span className="text-purple-500">.</span> Senay-Sanchez
+          E<span className="text-purple-500">d</span> Senay
         </button>
         <nav className="hidden sm:flex items-center gap-8">
           {navLinks.map((l) => (
@@ -501,13 +501,13 @@ function About() {
               <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-purple-100 via-warm-100 to-purple-200 border border-warm-200/70">
                 <img
                   src={portraitImg}
-                  alt="Edward Senay-Sanchez"
+                  alt="Ed Senay"
                   className="absolute inset-0 w-full h-full object-cover object-center"
                 />
               </div>
               <div className="mt-5">
                 <p className="font-display font-700 text-base text-ink-900">
-                  Edward Senay-Sanchez
+                  Ed Senay
                 </p>
                 <p className="text-sm text-ink-500 mt-1 leading-relaxed">
                   Founder, MarketThis
@@ -621,7 +621,7 @@ function Footer() {
       <div className="max-w-6xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-3 flex-wrap justify-center">
           <span className="font-display font-800 text-sm tracking-tight text-ink-900">
-            E<span className="text-purple-500">.</span> Senay-Sanchez
+            E<span className="text-purple-500">d</span> Senay
           </span>
           <span className="text-ink-300 text-xs">
             &middot; Building MarketThis &middot; Chicago, IL &middot; &copy; {year}
