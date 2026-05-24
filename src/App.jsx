@@ -256,7 +256,8 @@ function MarketThisSpotlight() {
           </p>
           <h2 className="font-display font-800 text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.02] text-ink-900 mb-6">
             Software has{" "}
-            <span className="text-purple-500">Vercel</span>.
+            <span className="text-purple-500">Vercel</span> and{" "}
+            <span className="text-purple-500">Terraform</span>.
             <br />
             Marketing has nothing.
           </h2>
