@@ -27,3 +27,4 @@ dist-ssr
 /linkedin-about.txt
 /yc-application*.txt
 /.claude/
+.playwright-mcp/
