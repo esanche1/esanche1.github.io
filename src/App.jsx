@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import marketThisImg from "./assets/marketthis.webp";
 import marketThisMobileImg from "./assets/marketthis-mobile.webp";
 import chiTixImg from "./assets/chitix.webp";
@@ -511,6 +511,84 @@ function AlsoBuilding() {
 
 const spendRanges = ["$10K to $50K", "$50K to $200K", "$200K+"];
 
+// Custom dropdown so the control matches the dark form. A native <select>
+// renders an OS-styled popup that clashes with the card.
+function SpendSelect({ value, onChange }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const onDoc = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) setOpen(false);
+    };
+    const onKey = (e) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("mousedown", onDoc);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDoc);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-labelledby="partner-spend-label"
+        className={`w-full flex items-center justify-between gap-2 rounded-xl bg-white/5 border px-4 py-3 text-sm transition-colors duration-200 hover:bg-white/10 ${
+          open ? "border-purple-400" : "border-white/15"
+        } ${value ? "text-white" : "text-ink-400"}`}
+      >
+        {value || "Select a range"}
+        <svg
+          className={`w-4 h-4 shrink-0 text-ink-400 transition-transform duration-200 ${
+            open ? "rotate-180" : ""
+          }`}
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
+          <path d="M6 9l6 6 6-6" />
+        </svg>
+      </button>
+      {open && (
+        <div
+          role="listbox"
+          aria-labelledby="partner-spend-label"
+          className="absolute z-20 mt-2 w-full rounded-xl border border-white/10 bg-[#241c38] shadow-xl shadow-black/40 p-1"
+        >
+          {spendRanges.map((r) => (
+            <button
+              key={r}
+              type="button"
+              role="option"
+              aria-selected={value === r}
+              onClick={() => {
+                onChange(r);
+                setOpen(false);
+              }}
+              className={`w-full text-left text-sm px-3 py-2.5 rounded-lg transition-colors duration-200 ${
+                value === r
+                  ? "bg-purple-600 text-white"
+                  : "text-white/80 hover:bg-white/10 hover:text-white"
+              }`}
+            >
+              {r}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function DesignPartners() {
   const [email, setEmail] = useState("");
   const [spend, setSpend] = useState("");
@@ -531,15 +609,19 @@ function DesignPartners() {
 
   return (
     <section id="partner" className="scroll-mt-24 max-w-6xl mx-auto px-6 py-24">
-      <div className="relative overflow-hidden rounded-3xl bg-ink-900 text-white px-6 py-14 sm:px-12 lg:px-16">
+      <div className="relative rounded-3xl bg-ink-900 text-white px-6 py-14 sm:px-12 lg:px-16">
         <div
           aria-hidden="true"
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              "radial-gradient(60% 85% at 88% 5%, rgba(155,109,255,0.26), transparent 70%)",
-          }}
-        />
+          className="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none"
+        >
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(60% 85% at 88% 5%, rgba(155,109,255,0.26), transparent 70%)",
+            }}
+          />
+        </div>
         <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div>
             <p className="text-[11px] font-600 tracking-[0.22em] uppercase text-purple-300 mb-4">
@@ -571,28 +653,13 @@ function DesignPartners() {
               placeholder="you@company.com"
               className="w-full rounded-xl bg-white/5 border border-white/15 px-4 py-3 text-sm text-white placeholder:text-ink-400 focus:border-purple-400 focus:bg-white/10 outline-none transition-colors duration-200 mb-2"
             />
-            <label
-              htmlFor="partner-spend"
+            <span
+              id="partner-spend-label"
               className="text-[11px] font-600 tracking-[0.18em] uppercase text-purple-300"
             >
               Monthly ad spend
-            </label>
-            <select
-              id="partner-spend"
-              required
-              value={spend}
-              onChange={(e) => setSpend(e.target.value)}
-              className="w-full rounded-xl bg-white/5 border border-white/15 px-4 py-3 text-sm text-white focus:border-purple-400 focus:bg-white/10 outline-none transition-colors duration-200"
-            >
-              <option value="" disabled>
-                Select a range
-              </option>
-              {spendRanges.map((r) => (
-                <option key={r} value={r} className="text-ink-900">
-                  {r}
-                </option>
-              ))}
-            </select>
+            </span>
+            <SpendSelect value={spend} onChange={setSpend} />
             <button
               type="submit"
               className="mt-4 inline-flex items-center justify-center gap-2 text-sm font-600 text-white bg-purple-600 hover:bg-purple-700 px-5 py-3 rounded-xl transition-colors duration-200"
