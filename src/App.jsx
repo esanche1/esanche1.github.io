@@ -237,16 +237,6 @@ function Hero() {
                   className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.02]"
                 />
               </picture>
-              <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/30 to-transparent pointer-events-none" />
-              <div className="absolute top-4 left-4">
-                <span className="inline-flex items-center gap-1.5 text-[10px] font-600 tracking-wider uppercase text-white bg-black/45 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/10">
-                  <span className="relative flex w-1.5 h-1.5">
-                    <span className="absolute inline-flex w-full h-full rounded-full bg-amber-400 opacity-60 animate-ping" />
-                    <span className="relative inline-flex w-1.5 h-1.5 rounded-full bg-amber-400" />
-                  </span>
-                  Beta &middot; marketthis.io
-                </span>
-              </div>
             </div>
           </a>
         </div>
