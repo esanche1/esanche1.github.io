@@ -56,6 +56,27 @@ html {
   scroll-padding-top: 5rem;
 }
 
+/* Visible keyboard focus on every interactive element */
+:where(a, button, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-purple-500);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Honor reduced-motion: stand down the pinging dots, fades, and smooth scroll */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
 body {
   background: var(--color-warm-50);
   color: var(--color-ink-900);

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import marketThisImg from "./assets/marketthis.webp";
+import marketThisMobileImg from "./assets/marketthis-mobile.webp";
 import chiTixImg from "./assets/chitix.webp";
 import validateThisImg from "./assets/validatethis.webp";
-import portraitImg from "./assets/portrait.jpg";
 
 const sideProjects = [
   {
@@ -32,7 +32,7 @@ const sideProjects = [
     stack: ["Next.js", "TypeScript", "Postgres", "AI rules"],
     metrics: [
       { label: "Rows", value: "10B+" },
-      { label: "Accuracy", value: "97.4%" },
+      { label: "Rule precision", value: "97.4%" },
     ],
   },
 ];
@@ -52,9 +52,9 @@ const marketThisFeatures = [
   },
   {
     label: "Market",
-    title: "Move budget where it works.",
+    title: "Spend that moves like code.",
     description:
-      "Connect your ad accounts. See what is working, what is not, where to move spend. No more bouncing between five tabs.",
+      "Connect your ad accounts. Plan, apply, and roll back budget across platforms instead of bouncing between five tabs.",
   },
 ];
 
@@ -73,10 +73,14 @@ const externalProps = (href) =>
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const scrollToTop = () =>
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  const scrollToTop = () => {
+    const reduce = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+  };
   const navLinkClass =
-    "text-sm font-500 text-ink-400 hover:text-ink-900 transition-colors duration-200";
+    "text-sm font-500 text-ink-500 hover:text-ink-900 transition-colors duration-200";
 
   return (
     <header className="sticky top-0 z-50 bg-warm-50/80 backdrop-blur-xl border-b border-warm-200/60">
@@ -84,6 +88,7 @@ function Header() {
         <button
           type="button"
           onClick={scrollToTop}
+          aria-label="Ed Senay, back to top"
           className="font-display font-800 text-lg tracking-tight text-ink-900 cursor-pointer"
         >
           E<span className="text-purple-500">d</span> Senay
@@ -113,7 +118,7 @@ function Header() {
             </svg>
           </button>
           <a
-            href="#about"
+            href="#contact"
             className="text-sm font-600 text-white bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded-lg transition-colors duration-200"
           >
             Get in Touch
@@ -150,9 +155,7 @@ function Hero() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
         <div className="lg:col-span-6">
           <a
-            href="https://www.marketthis.io"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="mailto:support@marketthis.io?subject=MarketThis%20role"
             className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-100 mb-8 hover:bg-emerald-100 transition-colors duration-200"
           >
             <span className="relative flex w-2 h-2">
@@ -164,14 +167,17 @@ function Hero() {
             </span>
           </a>
 
-          <h1 className="font-display font-800 text-5xl sm:text-6xl lg:text-[5.25rem] tracking-tight leading-[0.98] text-ink-900 mb-6">
-            I&apos;m building{" "}
-            <span className="text-purple-500">MarketThis</span>.
+          <h1 className="font-display font-800 text-5xl sm:text-6xl lg:text-7xl tracking-tight leading-[0.98] text-ink-900 mb-6">
+            Software has{" "}
+            <span className="text-purple-500">Vercel</span> and{" "}
+            <span className="text-purple-500">Terraform</span>.
+            <br />
+            Marketing has nothing.
           </h1>
           <p className="text-lg sm:text-xl text-ink-500 leading-relaxed max-w-xl mb-8">
-            Marketing infrastructure for builders. Brand, build, and market
-            a product from one stack. Built for companies spending $10K to
-            $200K per month on ads.
+            MarketThis is marketing infrastructure for builders. Brand, build,
+            and market a product the way you ship code. Built for companies
+            spending $10K to $200K per month on ads.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3">
@@ -187,12 +193,18 @@ function Hero() {
               </svg>
             </a>
             <a
-              href="#about"
+              href="#partner"
               className="inline-flex items-center justify-center gap-2 text-sm font-600 text-ink-700 bg-white hover:bg-warm-100 border border-warm-200 px-5 py-3 rounded-xl transition-colors duration-200"
             >
-              About Ed
+              Become a design partner
             </a>
           </div>
+
+          <p className="mt-6 text-sm font-500 text-ink-500">
+            I&apos;m Ed Senay, building MarketThis. The operator behind{" "}
+            <span className="font-700 text-ink-700">$200M+/yr</span> in managed
+            ad spend at Scale Marketing.
+          </p>
         </div>
 
         <div className="lg:col-span-6 max-w-[560px] mx-auto lg:max-w-none w-full">
@@ -212,11 +224,19 @@ function Hero() {
               }}
             />
             <div className="relative aspect-[16/11] rounded-3xl overflow-hidden border border-warm-200/80 bg-ink-900 shadow-2xl shadow-purple-900/[0.08] group-hover:shadow-purple-900/[0.14] transition-shadow duration-300">
-              <img
-                src={marketThisImg}
-                alt="MarketThis product screenshot"
-                className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.02]"
-              />
+              <picture>
+                <source
+                  media="(max-width: 640px)"
+                  srcSet={marketThisMobileImg}
+                />
+                <img
+                  src={marketThisImg}
+                  alt="MarketThis generating a first-month paid plan across Meta and TikTok"
+                  fetchPriority="high"
+                  decoding="async"
+                  className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+                />
+              </picture>
               <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/30 to-transparent pointer-events-none" />
               <div className="absolute top-4 left-4">
                 <span className="inline-flex items-center gap-1.5 text-[10px] font-600 tracking-wider uppercase text-white bg-black/45 backdrop-blur-md px-2.5 py-1 rounded-full border border-white/10">
@@ -255,11 +275,8 @@ function MarketThisSpotlight() {
             What I&apos;m building
           </p>
           <h2 className="font-display font-800 text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.02] text-ink-900 mb-6">
-            Software has{" "}
-            <span className="text-purple-500">Vercel</span> and{" "}
-            <span className="text-purple-500">Terraform</span>.
-            <br />
-            Marketing has nothing.
+            Brand, build, and market{" "}
+            <span className="text-purple-500">like you ship code</span>.
           </h2>
           <p className="text-lg text-ink-500 leading-relaxed">
             Dev infra made shipping software trivial. Concept to 1.0 to
@@ -290,20 +307,28 @@ function MarketThisSpotlight() {
           ))}
         </div>
 
-        <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-          <a
-            href="https://www.marketthis.io"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 text-sm font-600 text-white bg-purple-600 hover:bg-purple-700 px-5 py-3 rounded-xl transition-colors duration-200 self-start"
-          >
-            Open MarketThis
-            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M7 17L17 7M17 7H7M17 7v10" />
-            </svg>
-          </a>
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col sm:flex-row gap-3">
+            <a
+              href="https://www.marketthis.io"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 text-sm font-600 text-white bg-purple-600 hover:bg-purple-700 px-5 py-3 rounded-xl transition-colors duration-200"
+            >
+              Open MarketThis
+              <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M7 17L17 7M17 7H7M17 7v10" />
+              </svg>
+            </a>
+            <a
+              href="#partner"
+              className="inline-flex items-center justify-center gap-2 text-sm font-600 text-ink-700 bg-white hover:bg-warm-50 border border-warm-200 px-5 py-3 rounded-xl transition-colors duration-200"
+            >
+              Become a design partner
+            </a>
+          </div>
           <span className="text-sm text-ink-500">
-            Beta. Open to design partners spending $10K to $200K per month on ads.
+            Private beta. Onboarding a handful of design partners now.
           </span>
         </div>
       </div>
@@ -312,7 +337,7 @@ function MarketThisSpotlight() {
 }
 
 const credibilityStats = [
-  { value: "$200M+", label: "Annual ad spend on the platforms I architect" },
+  { value: "$200M+", label: "Annual ad spend on platforms my team builds" },
   { value: "20%", label: "YoY growth at the agency where I lead data ops" },
   { value: "12", label: "Engineers, ML scientists, designers on my team" },
 ];
@@ -343,8 +368,16 @@ function CredibilityBand() {
             Why I can build this
           </p>
           <h2 className="font-display font-700 text-2xl sm:text-3xl tracking-tight text-white leading-snug">
-            By day I run the data and ML platform behind a media agency&apos;s ad spend.
-            MarketThis is what I wish my clients had.
+            By day I run the data and ML platform behind{" "}
+            <a
+              href="https://www.scale-marketing.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline decoration-white/30 underline-offset-2 hover:decoration-white transition-colors duration-200"
+            >
+              Scale Marketing
+            </a>
+            &apos;s ad spend. MarketThis is what I wish my clients had.
           </h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-y-14 md:gap-y-0">
@@ -424,7 +457,7 @@ function SideProjectCard({ product, index }) {
           {product.stack.map((tech) => (
             <span
               key={tech}
-              className="text-[10px] font-500 text-ink-400 bg-warm-50 border border-warm-200/60 px-2 py-0.5 rounded"
+              className="text-[10px] font-500 text-ink-500 bg-warm-50 border border-warm-200/60 px-2 py-0.5 rounded"
             >
               {tech}
             </span>
@@ -437,7 +470,7 @@ function SideProjectCard({ product, index }) {
               <p className="font-display font-700 text-sm text-ink-900 leading-tight">
                 {m.value}
               </p>
-              <p className="text-[10px] font-500 uppercase tracking-wide text-ink-400 mt-0.5">
+              <p className="text-[10px] font-500 uppercase tracking-wide text-ink-500 mt-0.5">
                 {m.label}
               </p>
             </div>
@@ -465,15 +498,15 @@ function AlsoBuilding() {
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-10">
         <div>
           <p className="text-[11px] font-600 tracking-[0.22em] uppercase text-purple-600 mb-2">
-            Also building
+            Also shipped
           </p>
           <h2 className="font-display font-700 text-2xl sm:text-3xl text-ink-900 tracking-tight">
-            Side projects that scratched my own itch.
+            Two products I built and run end to end.
           </h2>
         </div>
         <p className="text-sm text-ink-500 max-w-md">
-          Smaller things I have shipped on nights and weekends. Both are live
-          and used by real people.
+          Live and used by real people. ValidateThis runs rules across 10B+
+          rows of production data.
         </p>
       </div>
 
@@ -481,6 +514,109 @@ function AlsoBuilding() {
         {sideProjects.map((product, i) => (
           <SideProjectCard key={product.id} product={product} index={i} />
         ))}
+      </div>
+    </section>
+  );
+}
+
+const spendRanges = ["$10K to $50K", "$50K to $200K", "$200K+"];
+
+function DesignPartners() {
+  const [email, setEmail] = useState("");
+  const [spend, setSpend] = useState("");
+
+  const submit = (e) => {
+    e.preventDefault();
+    // Static site, no backend: compose a prefilled email to support@marketthis.io.
+    // To capture asynchronously instead, point this at a Formspree/Tally endpoint
+    // (swap window.location for a fetch POST, or set the form action + method).
+    const subject = encodeURIComponent("MarketThis design partner");
+    const body = encodeURIComponent(
+      "I would like to explore becoming a MarketThis design partner.\n\n" +
+        `Email: ${email}\n` +
+        `Monthly ad spend: ${spend || "not specified"}\n`
+    );
+    window.location.href = `mailto:support@marketthis.io?subject=${subject}&body=${body}`;
+  };
+
+  return (
+    <section id="partner" className="scroll-mt-24 max-w-6xl mx-auto px-6 py-24">
+      <div className="relative overflow-hidden rounded-3xl bg-ink-900 text-white px-6 py-14 sm:px-12 lg:px-16">
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(60% 85% at 88% 5%, rgba(155,109,255,0.26), transparent 70%)",
+          }}
+        />
+        <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          <div>
+            <p className="text-[11px] font-600 tracking-[0.22em] uppercase text-purple-300 mb-4">
+              Design partners
+            </p>
+            <h2 className="font-display font-800 text-3xl sm:text-4xl lg:text-5xl tracking-tight leading-[1.05] mb-5">
+              Onboarding a handful of design partners now.
+            </h2>
+            <p className="text-ink-300 leading-relaxed max-w-md">
+              If you spend $10K to $200K a month on ads, you can help shape
+              MarketThis and get the brand, site, and budget stack built around
+              how you actually work. Tell me where you are and I will reach out.
+            </p>
+          </div>
+
+          <form onSubmit={submit} className="flex flex-col gap-2">
+            <label
+              htmlFor="partner-email"
+              className="text-[11px] font-600 tracking-[0.18em] uppercase text-purple-300"
+            >
+              Work email
+            </label>
+            <input
+              id="partner-email"
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="you@company.com"
+              className="w-full rounded-xl bg-white/5 border border-white/15 px-4 py-3 text-sm text-white placeholder:text-ink-400 focus:border-purple-400 focus:bg-white/10 outline-none transition-colors duration-200 mb-2"
+            />
+            <label
+              htmlFor="partner-spend"
+              className="text-[11px] font-600 tracking-[0.18em] uppercase text-purple-300"
+            >
+              Monthly ad spend
+            </label>
+            <select
+              id="partner-spend"
+              required
+              value={spend}
+              onChange={(e) => setSpend(e.target.value)}
+              className="w-full rounded-xl bg-white/5 border border-white/15 px-4 py-3 text-sm text-white focus:border-purple-400 focus:bg-white/10 outline-none transition-colors duration-200"
+            >
+              <option value="" disabled>
+                Select a range
+              </option>
+              {spendRanges.map((r) => (
+                <option key={r} value={r} className="text-ink-900">
+                  {r}
+                </option>
+              ))}
+            </select>
+            <button
+              type="submit"
+              className="mt-4 inline-flex items-center justify-center gap-2 text-sm font-600 text-white bg-purple-600 hover:bg-purple-700 px-5 py-3 rounded-xl transition-colors duration-200"
+            >
+              Apply for design partner access
+              <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </button>
+            <p className="text-xs text-ink-400 mt-2">
+              Opens your email client, prefilled. Goes straight to me.
+            </p>
+          </form>
+        </div>
       </div>
     </section>
   );
@@ -500,11 +636,15 @@ function About() {
           <div className="md:col-span-2">
             <div className="max-w-[280px]">
               <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-purple-100 via-warm-100 to-purple-200 border border-warm-200/70">
-                <img
-                  src={portraitImg}
-                  alt="Ed Senay"
-                  className="absolute inset-0 w-full h-full object-cover object-center"
-                />
+                {/* TODO: replace this monogram with a real headshot of Ed.
+                    Add the image to src/assets, import it, and render:
+                    <img src={portrait} alt="Ed Senay" loading="lazy" decoding="async"
+                         className="absolute inset-0 w-full h-full object-cover object-center" /> */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="font-display font-800 text-7xl tracking-tight text-purple-500/80 select-none">
+                    ES
+                  </span>
+                </div>
               </div>
               <div className="mt-5">
                 <p className="font-display font-700 text-base text-ink-900">
@@ -557,13 +697,35 @@ function About() {
                 Currently
               </p>
               <p className="text-sm text-ink-700 leading-relaxed">
-                Hiring engineers and designers for MarketThis. Open to
-                advisory conversations on data ops, attribution, and ML at
-                scale.
+                Hiring founding engineers and designers to build MarketThis
+                from zero with a data-ops founder. Open to advisory
+                conversations on data ops, attribution, and ML at scale.
               </p>
+              <a
+                href="mailto:support@marketthis.io?subject=MarketThis%20role"
+                className="inline-flex items-center gap-1 mt-3 text-sm font-600 text-purple-700 hover:text-purple-800 transition-colors duration-200"
+              >
+                Reach out about a role
+                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M7 17L17 7M17 7H7M17 7v10" />
+                </svg>
+              </a>
             </div>
 
-            <div className="flex flex-wrap gap-x-6 gap-y-2 mt-2">
+            <div id="contact" className="scroll-mt-24 mt-4">
+              <a
+                href="mailto:support@marketthis.io?subject=MarketThis"
+                className="inline-flex items-center gap-2 text-sm font-600 text-white bg-purple-600 hover:bg-purple-700 px-5 py-3 rounded-xl transition-colors duration-200"
+              >
+                <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <rect x="2" y="4" width="20" height="16" rx="2" />
+                  <path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7" />
+                </svg>
+                Email Ed
+              </a>
+            </div>
+
+            <div className="flex flex-wrap gap-x-6 gap-y-2 mt-4">
               <a
                 href="https://www.linkedin.com/in/ed-senay-sanchez-2049402b9/"
                 target="_blank"
@@ -598,7 +760,7 @@ function About() {
                 GitHub
               </a>
               <a
-                href="mailto:edcsanchez@yahoo.com"
+                href="mailto:support@marketthis.io"
                 className="flex items-center gap-2.5 text-sm text-ink-500 hover:text-purple-600 transition-colors duration-200 py-1.5"
               >
                 <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -624,7 +786,7 @@ function Footer() {
           <span className="font-display font-800 text-sm tracking-tight text-ink-900">
             E<span className="text-purple-500">d</span> Senay
           </span>
-          <span className="text-ink-300 text-xs">
+          <span className="text-ink-500 text-xs">
             &middot; Building MarketThis &middot; Chicago, IL &middot; &copy; {year}
           </span>
         </div>
@@ -641,7 +803,7 @@ function Footer() {
             href="https://www.linkedin.com/in/ed-senay-sanchez-2049402b9/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-xs text-ink-400 hover:text-purple-600 transition-colors duration-200"
+            className="text-xs text-ink-500 hover:text-purple-600 transition-colors duration-200"
           >
             LinkedIn
           </a>
@@ -649,7 +811,7 @@ function Footer() {
             href="https://substack.com/@edsenaysanchez"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-xs text-ink-400 hover:text-purple-600 transition-colors duration-200"
+            className="text-xs text-ink-500 hover:text-purple-600 transition-colors duration-200"
           >
             Substack
           </a>
@@ -657,13 +819,13 @@ function Footer() {
             href="https://github.com/esanche1"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-xs text-ink-400 hover:text-purple-600 transition-colors duration-200"
+            className="text-xs text-ink-500 hover:text-purple-600 transition-colors duration-200"
           >
             GitHub
           </a>
           <a
-            href="mailto:edcsanchez@yahoo.com"
-            className="text-xs text-ink-400 hover:text-purple-600 transition-colors duration-200"
+            href="mailto:support@marketthis.io"
+            className="text-xs text-ink-500 hover:text-purple-600 transition-colors duration-200"
           >
             Email
           </a>
@@ -675,12 +837,13 @@ function Footer() {
 
 export default function App() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen overflow-x-clip">
       <Header />
       <Hero />
       <MarketThisSpotlight />
       <CredibilityBand />
       <AlsoBuilding />
+      <DesignPartners />
       <About />
       <Footer />
     </div>

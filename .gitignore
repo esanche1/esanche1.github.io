@@ -28,3 +28,4 @@ dist-ssr
 /yc-application*.txt
 /.claude/
 .playwright-mcp/
+/marketthis-positioning-spec.md
