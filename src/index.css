@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-display: "Bricolage Grotesque", sans-serif;
+  --font-display: "Geist", sans-serif;
   --font-body: "Figtree", sans-serif;
   --font-mono: "IBM Plex Mono", monospace;
 
