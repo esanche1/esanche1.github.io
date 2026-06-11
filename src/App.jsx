@@ -181,16 +181,6 @@ function Hero() {
       <div className="relative max-w-6xl mx-auto px-6 pt-16 lg:pt-24 pb-20 lg:pb-28 animate-fade-up">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
           <div className="lg:col-span-6">
-            <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-emerald-400/[0.08] border border-emerald-400/20 mb-8">
-              <span className="relative flex w-2 h-2">
-                <span className="absolute inline-flex w-full h-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
-                <span className="relative inline-flex w-2 h-2 rounded-full bg-emerald-400" />
-              </span>
-              <span className="font-mono text-[11px] font-500 text-emerald-300 tracking-[0.14em] uppercase">
-                Beta
-              </span>
-            </div>
-
             <h1 className="font-display font-800 text-5xl sm:text-6xl lg:text-7xl tracking-tight leading-[0.98] text-paper-50 mb-6">
               Software has{" "}
               <span className="text-violet-400">Vercel</span> and{" "}
