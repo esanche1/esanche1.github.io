@@ -181,18 +181,15 @@ function Hero() {
       <div className="relative max-w-6xl mx-auto px-6 pt-16 lg:pt-24 pb-20 lg:pb-28 animate-fade-up">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
           <div className="lg:col-span-6">
-            <a
-              href="mailto:support@marketthis.io?subject=MarketThis%20role"
-              className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-emerald-400/[0.08] border border-emerald-400/20 mb-8 hover:bg-emerald-400/[0.14] transition-colors duration-200"
-            >
+            <div className="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-emerald-400/[0.08] border border-emerald-400/20 mb-8">
               <span className="relative flex w-2 h-2">
                 <span className="absolute inline-flex w-full h-full rounded-full bg-emerald-400 opacity-75 animate-ping" />
                 <span className="relative inline-flex w-2 h-2 rounded-full bg-emerald-400" />
               </span>
               <span className="font-mono text-[11px] font-500 text-emerald-300 tracking-[0.14em] uppercase">
-                Beta &middot; Hiring engineers and designers
+                Beta
               </span>
-            </a>
+            </div>
 
             <h1 className="font-display font-800 text-5xl sm:text-6xl lg:text-7xl tracking-tight leading-[0.98] text-paper-50 mb-6">
               Software has{" "}
@@ -757,19 +754,10 @@ function About() {
                 Currently
               </p>
               <p className="text-sm text-mist-200 leading-relaxed">
-                Hiring founding engineers and designers to build MarketThis
-                from zero with a data-ops founder. Open to advisory
-                conversations on data ops, attribution, and ML at scale.
+                Building MarketThis from zero as a data-ops founder. Open to
+                advisory conversations on data ops, attribution, and ML at
+                scale.
               </p>
-              <a
-                href="mailto:support@marketthis.io?subject=MarketThis%20role"
-                className="inline-flex items-center gap-1 mt-3 text-sm font-600 text-violet-300 hover:text-violet-200 transition-colors duration-200"
-              >
-                Reach out about a role
-                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M7 17L17 7M17 7H7M17 7v10" />
-                </svg>
-              </a>
             </div>
 
             <div id="contact" className="scroll-mt-24 mt-4">
