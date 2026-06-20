@@ -24,15 +24,15 @@ const sideProjects = [
     id: 2,
     title: "ValidateThis.io",
     description:
-      "Catches bad data before it causes problems. Rules engine across databases, APIs, spreadsheets, and CRMs.",
-    category: "Data",
+      "The AI backend for auto repair shops. An agent that places real calls to suppliers, adjusters, and customers. Sources parts, chases supplements, and books jobs on autopilot.",
+    category: "Vertical AI",
     status: "Live",
     image: validateThisImg,
     url: "https://www.validatethis.io",
-    stack: ["Next.js", "TypeScript", "Postgres", "AI rules"],
+    stack: ["Voice AI", "Twilio", "Next.js", "Postgres"],
     metrics: [
-      { label: "Rows", value: "10B+" },
-      { label: "Rule precision", value: "97.4%" },
+      { label: "Calls handled", value: "12,000+" },
+      { label: "Revenue lift", value: "+22%" },
     ],
   },
 ];
@@ -492,8 +492,8 @@ function AlsoBuilding() {
           </h2>
         </div>
         <p className="text-sm text-mist-400 max-w-md">
-          Live and used by real people. ValidateThis runs rules across 10B+
-          rows of production data.
+          Live and used by real people. ValidateThis runs the phones for repair
+          shops, 12,000+ calls and messages handled.
         </p>
       </div>
 
