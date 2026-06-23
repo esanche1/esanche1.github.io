@@ -72,9 +72,9 @@ const externalProps = (href) =>
     : {};
 
 const primaryBtn =
-  "inline-flex items-center justify-center gap-2 text-sm font-600 text-white bg-violet-600 hover:bg-violet-500 px-5 py-3 rounded-xl shadow-lg shadow-violet-600/25 hover:shadow-violet-500/35 transition-all duration-200";
+  "inline-flex items-center justify-center gap-2 text-sm font-600 text-white bg-violet-600 hover:bg-violet-500 px-5 py-3 rounded-lg shadow-lg shadow-violet-600/25 hover:shadow-violet-500/35 transition-all duration-200";
 const secondaryBtn =
-  "inline-flex items-center justify-center gap-2 text-sm font-600 text-paper-50 bg-white/[0.04] hover:bg-white/[0.09] border border-white/15 hover:border-white/25 px-5 py-3 rounded-xl transition-colors duration-200";
+  "inline-flex items-center justify-center gap-2 text-sm font-600 text-paper-50 bg-white/[0.04] hover:bg-white/[0.09] border border-white/15 hover:border-white/25 px-5 py-3 rounded-lg transition-colors duration-200";
 
 function Eyebrow({ children, tone = "dark", className = "" }) {
   const toneClass =
@@ -106,9 +106,9 @@ function Header() {
           type="button"
           onClick={scrollToTop}
           aria-label="Ed Senay, back to top"
-          className="font-display font-800 text-lg tracking-tight text-paper-50 cursor-pointer"
+          className="font-display font-800 text-lg text-paper-50 cursor-pointer"
         >
-          E<span className="text-violet-400">d</span> Senay
+          Ed Senay
         </button>
         <nav className="hidden sm:flex items-center gap-8">
           {navLinks.map((l) => (
@@ -170,21 +170,13 @@ function Hero() {
   return (
     <section className="relative overflow-hidden">
       <div aria-hidden="true" className="absolute inset-0 grid-lines pointer-events-none" />
-      <div
-        aria-hidden="true"
-        className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[600px] pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(closest-side, rgba(138,95,255,0.22), transparent 70%)",
-        }}
-      />
       <div className="relative max-w-6xl mx-auto px-6 pt-16 lg:pt-24 pb-20 lg:pb-28 animate-fade-up">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
           <div className="lg:col-span-6">
-            <h1 className="font-display font-800 text-5xl sm:text-6xl lg:text-7xl tracking-tight leading-[0.98] text-paper-50 mb-6">
+            <h1 className="font-display font-800 text-5xl sm:text-6xl lg:text-7xl leading-[0.98] text-paper-50 mb-6">
               Software has{" "}
-              <span className="text-violet-400">Vercel</span> and{" "}
-              <span className="text-violet-400">Terraform</span>.
+              <span className="text-violet-300">Vercel</span> and{" "}
+              <span className="text-violet-300">Terraform</span>.
               <br />
               Marketing has nothing.
             </h1>
@@ -226,15 +218,7 @@ function Hero() {
               aria-label="Open MarketThis"
               className="block relative group"
             >
-              <div
-                aria-hidden="true"
-                className="absolute -inset-10 -z-10 rounded-full opacity-70 blur-3xl pointer-events-none"
-                style={{
-                  background:
-                    "radial-gradient(closest-side, rgba(138,95,255,0.35), transparent 70%)",
-                }}
-              />
-              <div className="relative aspect-[16/11] rounded-2xl overflow-hidden border border-white/15 bg-base-900 shadow-2xl shadow-black/50 ring-1 ring-violet-400/10 group-hover:ring-violet-400/30 group-hover:border-white/25 transition-all duration-300">
+              <div className="relative aspect-[16/11] rounded-lg overflow-hidden border border-white/15 bg-base-900 shadow-2xl shadow-black/50 ring-1 ring-violet-400/10 group-hover:ring-violet-400/30 group-hover:border-white/25 transition-all duration-300">
                 <picture>
                   <source
                     media="(max-width: 640px)"
@@ -263,20 +247,12 @@ function MarketThisSpotlight() {
       id="marketthis"
       className="relative overflow-hidden bg-base-900 border-y border-white/[0.07]"
     >
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(60% 50% at 90% 0%, rgba(138,95,255,0.12), transparent 70%)",
-        }}
-      />
       <div className="relative max-w-6xl mx-auto px-6 py-24 lg:py-28">
         <div className="max-w-3xl mb-14">
           <Eyebrow className="mb-4">What I&apos;m building</Eyebrow>
-          <h2 className="font-display font-800 text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-[1.02] text-paper-50 mb-6">
+          <h2 className="font-display font-800 text-4xl sm:text-5xl lg:text-6xl leading-[1.02] text-paper-50 mb-6">
             Brand, build, and market{" "}
-            <span className="text-violet-400">like you ship code</span>.
+            <span className="text-violet-300">like you ship code</span>.
           </h2>
           <p className="text-lg text-mist-300 leading-relaxed">
             Dev infra made shipping software trivial. Concept to 1.0 to
@@ -291,13 +267,13 @@ function MarketThisSpotlight() {
           {marketThisFeatures.map((f, i) => (
             <div
               key={f.label}
-              className="group relative p-6 lg:p-7 rounded-2xl bg-base-800/80 border border-white/[0.08] hover:border-violet-400/35 hover:bg-base-800 transition-colors duration-300 animate-fade-up"
+              className="group relative p-6 lg:p-7 rounded-lg bg-base-800/80 border border-white/[0.08] hover:border-violet-400/35 hover:bg-base-800 transition-colors duration-300 animate-fade-up"
               style={{ animationDelay: `${i * 80}ms` }}
             >
               <p className="font-mono text-[11px] font-500 tracking-[0.18em] uppercase text-violet-300 mb-3">
                 <span className="text-mist-500">0{i + 1} /</span> {f.label}
               </p>
-              <h3 className="font-display font-700 text-xl text-paper-50 tracking-tight mb-2">
+              <h3 className="font-display font-700 text-xl text-paper-50 mb-2">
                 {f.title}
               </h3>
               <p className="text-sm text-mist-300 leading-relaxed">
@@ -356,7 +332,7 @@ function CredibilityBand() {
           <Eyebrow tone="light" className="mb-4">
             Why I can build this
           </Eyebrow>
-          <h2 className="font-display font-700 text-2xl sm:text-3xl tracking-tight text-inkwell-900 leading-snug">
+          <h2 className="font-display font-700 text-2xl sm:text-3xl text-inkwell-900 leading-snug">
             By day I run the data and ML platform behind{" "}
             <a
               href="https://www.scale-marketing.com"
@@ -377,7 +353,7 @@ function CredibilityBand() {
                 i > 0 ? "md:border-l md:border-inkwell-900/10" : ""
               }`}
             >
-              <p className="font-display font-800 tracking-tight leading-[0.95] text-inkwell-900 text-6xl sm:text-7xl lg:text-8xl">
+              <p className="font-display font-800 leading-[0.95] text-inkwell-900 text-6xl sm:text-7xl lg:text-8xl">
                 {s.value}
               </p>
               <p className="mt-5 font-mono text-xs font-500 tracking-wide uppercase text-inkwell-500 max-w-[26ch] mx-auto leading-relaxed">
@@ -409,7 +385,7 @@ function StatusBadge({ status }) {
 function SideProjectCard({ product, index }) {
   return (
     <article
-      className="group bg-base-800/80 rounded-2xl border border-white/[0.08] overflow-hidden
+      className="group bg-base-800/80 rounded-lg border border-white/[0.08] overflow-hidden
                  transition-all duration-300 ease-out
                  hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/40 hover:border-violet-400/35
                  animate-scale-in flex flex-col"
@@ -435,7 +411,7 @@ function SideProjectCard({ product, index }) {
             {product.category}
           </span>
         </div>
-        <h3 className="font-display font-700 text-lg text-paper-50 mb-2 tracking-tight">
+        <h3 className="font-display font-700 text-lg text-paper-50 mb-2">
           {product.title}
         </h3>
         <p className="text-sm text-mist-300 leading-relaxed mb-4">
@@ -487,7 +463,7 @@ function AlsoBuilding() {
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-10">
         <div>
           <Eyebrow className="mb-2">Also shipped</Eyebrow>
-          <h2 className="font-display font-700 text-2xl sm:text-3xl text-paper-50 tracking-tight">
+          <h2 className="font-display font-700 text-2xl sm:text-3xl text-paper-50">
             Two products I built and run end to end.
           </h2>
         </div>
@@ -538,7 +514,7 @@ function SpendSelect({ value, onChange }) {
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-labelledby="partner-spend-label"
-        className={`w-full flex items-center justify-between gap-2 rounded-xl bg-white/5 border px-4 py-3 text-sm transition-colors duration-200 hover:bg-white/10 ${
+        className={`w-full flex items-center justify-between gap-2 rounded-lg bg-white/5 border px-4 py-3 text-sm transition-colors duration-200 hover:bg-white/10 ${
           open ? "border-violet-400" : "border-white/15"
         } ${value ? "text-paper-50" : "text-mist-400"}`}
       >
@@ -559,7 +535,7 @@ function SpendSelect({ value, onChange }) {
         <div
           role="listbox"
           aria-labelledby="partner-spend-label"
-          className="absolute z-20 mt-2 w-full rounded-xl border border-white/10 bg-base-700 shadow-xl shadow-black/40 p-1"
+          className="absolute z-20 mt-2 w-full rounded-lg border border-white/10 bg-base-700 shadow-xl shadow-black/40 p-1"
         >
           {spendRanges.map((r) => (
             <button
@@ -571,7 +547,7 @@ function SpendSelect({ value, onChange }) {
                 onChange(r);
                 setOpen(false);
               }}
-              className={`w-full text-left text-sm px-3 py-2.5 rounded-lg transition-colors duration-200 ${
+              className={`w-full text-left text-sm px-3 py-2.5 rounded-md transition-colors duration-200 ${
                 value === r
                   ? "bg-violet-600 text-white"
                   : "text-paper-50/80 hover:bg-white/10 hover:text-paper-50"
@@ -606,23 +582,11 @@ function DesignPartners() {
 
   return (
     <section id="partner" className="scroll-mt-24 max-w-6xl mx-auto px-6 py-24">
-      <div className="relative rounded-3xl bg-base-800 border border-violet-400/20 px-6 py-14 sm:px-12 lg:px-16">
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none"
-        >
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(60% 85% at 88% 0%, rgba(138,95,255,0.22), transparent 70%), radial-gradient(45% 60% at 5% 100%, rgba(138,95,255,0.1), transparent 70%)",
-            }}
-          />
-        </div>
+      <div className="relative rounded-lg bg-base-800 border border-violet-400/20 px-6 py-14 sm:px-12 lg:px-16">
         <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           <div>
             <Eyebrow className="mb-4">Design partners</Eyebrow>
-            <h2 className="font-display font-800 text-3xl sm:text-4xl lg:text-5xl tracking-tight leading-[1.05] text-paper-50 mb-5">
+            <h2 className="font-display font-800 text-3xl sm:text-4xl lg:text-5xl leading-[1.05] text-paper-50 mb-5">
               Onboarding a handful of design partners now.
             </h2>
             <p className="text-mist-300 leading-relaxed max-w-md">
@@ -646,7 +610,7 @@ function DesignPartners() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@company.com"
-              className="w-full rounded-xl bg-white/5 border border-white/15 px-4 py-3 text-sm text-paper-50 placeholder:text-mist-500 focus:border-violet-400 focus:bg-white/10 outline-none transition-colors duration-200 mb-2"
+              className="w-full rounded-lg bg-white/5 border border-white/15 px-4 py-3 text-sm text-paper-50 placeholder:text-mist-500 focus:border-violet-400 focus:bg-white/10 outline-none transition-colors duration-200 mb-2"
             />
             <span
               id="partner-spend-label"
@@ -676,19 +640,19 @@ function About() {
     <section id="about" className="max-w-6xl mx-auto px-6 pb-24">
       <div className="border-t border-white/[0.07] pt-16">
         <Eyebrow className="mb-2">About</Eyebrow>
-        <h2 className="font-display font-700 text-2xl sm:text-3xl text-paper-50 tracking-tight mb-10">
+        <h2 className="font-display font-700 text-2xl sm:text-3xl text-paper-50 mb-10">
           The founder behind it.
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-5 gap-10 lg:gap-14 items-start">
           <div className="md:col-span-2">
             <div className="max-w-[280px]">
-              <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-gradient-to-br from-violet-600/25 via-base-800 to-base-900 border border-white/10">
+              <div className="relative w-full aspect-square rounded-lg overflow-hidden bg-gradient-to-br from-violet-600/25 via-base-800 to-base-900 border border-white/10">
                 {/* TODO: replace this monogram with a real headshot of Ed.
                     Add the image to src/assets, import it, and render:
                     <img src={portrait} alt="Ed Senay" loading="lazy" decoding="async"
                          className="absolute inset-0 w-full h-full object-cover object-center" /> */}
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="font-display font-800 text-7xl tracking-tight text-violet-400/80 select-none">
+                  <span className="font-display font-800 text-7xl text-violet-400/80 select-none">
                     ES
                   </span>
                 </div>
@@ -739,7 +703,7 @@ function About() {
               .
             </p>
 
-            <div className="mt-3 p-5 rounded-xl bg-violet-500/[0.08] border border-violet-400/20">
+            <div className="mt-3 p-5 rounded-lg bg-violet-500/[0.08] border border-violet-400/20">
               <p className="font-mono text-[11px] font-500 tracking-[0.18em] uppercase text-violet-300 mb-2">
                 Currently
               </p>
@@ -821,8 +785,8 @@ function Footer() {
     <footer className="border-t border-white/[0.07] mt-12">
       <div className="max-w-6xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-3 flex-wrap justify-center">
-          <span className="font-display font-800 text-sm tracking-tight text-paper-50">
-            E<span className="text-violet-400">d</span> Senay
+          <span className="font-display font-800 text-sm text-paper-50">
+            Ed Senay
           </span>
           <span className="text-mist-500 text-xs">
             &middot; Building MarketThis &middot; Chicago, IL &middot; &copy; {year}
