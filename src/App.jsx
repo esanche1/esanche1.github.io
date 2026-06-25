@@ -4,6 +4,14 @@ import marketThisMobileImg from "./assets/marketthis-mobile.webp";
 import chiTixImg from "./assets/chitix.webp";
 import validateThisImg from "./assets/validatethis.webp";
 
+// Fire a GA4 event when the gtag.js tag is present (loaded in index.html).
+// Safe no-op locally or when analytics is blocked.
+function track(name, params = {}) {
+  if (typeof window !== "undefined" && typeof window.gtag === "function") {
+    window.gtag("event", name, params);
+  }
+}
+
 const sideProjects = [
   {
     id: 1,
@@ -577,6 +585,7 @@ function DesignPartners() {
         `Email: ${email}\n` +
         `Monthly ad spend: ${spend || "not specified"}\n`
     );
+    track("design_partner_apply", { monthly_ad_spend: spend || "not specified" });
     window.location.href = `mailto:support@marketthis.io?subject=${subject}&body=${body}`;
   };
 
@@ -718,6 +727,7 @@ function About() {
               <a
                 href="mailto:support@marketthis.io?subject=MarketThis"
                 className={primaryBtn}
+                onClick={() => track("contact_email", { location: "email_ed" })}
               >
                 <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <rect x="2" y="4" width="20" height="16" rx="2" />
@@ -764,6 +774,7 @@ function About() {
               <a
                 href="mailto:support@marketthis.io"
                 className="flex items-center gap-2.5 text-sm text-mist-400 hover:text-violet-300 transition-colors duration-200 py-1.5"
+                onClick={() => track("contact_email", { location: "about_links" })}
               >
                 <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <rect x="2" y="4" width="20" height="16" rx="2" />
@@ -828,6 +839,7 @@ function Footer() {
           <a
             href="mailto:support@marketthis.io"
             className="text-xs text-mist-400 hover:text-violet-300 transition-colors duration-200"
+            onClick={() => track("contact_email", { location: "footer" })}
           >
             Email
           </a>
