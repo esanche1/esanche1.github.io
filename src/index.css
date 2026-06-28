@@ -27,13 +27,13 @@
   --color-inkwell-600: #4a4258;
   --color-inkwell-500: #635a75;
 
-  /* Electric violet accent */
-  --color-violet-200: #dbceff;
-  --color-violet-300: #c2acff;
-  --color-violet-400: #a382ff;
-  --color-violet-500: #8a5fff;
-  --color-violet-600: #7748f5;
-  --color-violet-700: #6534e0;
+  /* MarketThis brand blue accent (sampled from the live product: #3b82f6) */
+  --color-blue-200: #bfdbfe;
+  --color-blue-300: #93c5fd;
+  --color-blue-400: #60a5fa;
+  --color-blue-500: #3b82f6;
+  --color-blue-600: #2563eb;
+  --color-blue-700: #1d4ed8;
 
   --animate-fade-up: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
   --animate-fade-in: fade-in 0.5s ease both;
@@ -56,7 +56,7 @@
 }
 
 ::selection {
-  background: var(--color-violet-300);
+  background: var(--color-blue-300);
   color: var(--color-inkwell-900);
 }
 
@@ -67,7 +67,7 @@ html {
 
 /* Visible keyboard focus on every interactive element */
 :where(a, button, [tabindex]):focus-visible {
-  outline: 2px solid var(--color-violet-400);
+  outline: 2px solid var(--color-blue-400);
   outline-offset: 2px;
   border-radius: 4px;
 }
