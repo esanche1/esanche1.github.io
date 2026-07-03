@@ -25,14 +25,14 @@ const sideProjects = [
     stack: ["Next.js", "TypeScript", "Drizzle", "Twilio"],
     metrics: [
       { label: "Events", value: "50+ live" },
-      { label: "Markets", value: "6 tracked" },
+      { label: "Marketplaces", value: "6 tracked" },
     ],
   },
   {
     id: 2,
     title: "ValidateThis.io",
     description:
-      "The AI agent for auto repair shops. Answers every call, text, and chat 24/7, books the job, and chases every supplement and dispute to closed.",
+      "The AI agent for auto repair shops. Answers every call, text, and chat 24/7, books the job, and chases every insurance supplement and disputed claim until the shop gets paid.",
     category: "Vertical AI",
     status: "Live",
     image: validateThisImg,
@@ -41,13 +41,19 @@ const sideProjects = [
     url: "https://www.validatethis.io",
     stack: ["Voice AI", "Twilio", "Next.js", "Postgres"],
     metrics: [
-      { label: "Calls handled", value: "12,000+" },
-      { label: "Revenue lift", value: "+18%" },
+      { label: "Calls + texts handled", value: "12,000+" },
+      { label: "Revenue lift, pilot shops", value: "+18%" },
     ],
   },
 ];
 
 const marketThisFeatures = [
+  {
+    label: "Market",
+    title: "Spend that moves like code.",
+    description:
+      "Connect your ad accounts. Plan, apply, and roll back budget across platforms instead of bouncing between five tabs.",
+  },
   {
     label: "Brand",
     title: "Brand identity, in minutes.",
@@ -60,19 +66,13 @@ const marketThisFeatures = [
     description:
       "Marketing site, landing pages, lifecycle email. Components that adapt to your brand and your data, not the other way around.",
   },
-  {
-    label: "Market",
-    title: "Spend that moves like code.",
-    description:
-      "Connect your ad accounts. Plan, apply, and roll back budget across platforms instead of bouncing between five tabs.",
-  },
 ];
 
 const navLinks = [
   { href: "#marketthis", label: "MarketThis" },
-  { href: "#also-building", label: "Also Building" },
+  { href: "#also-building", label: "Also Shipped" },
   { href: "#about", label: "About" },
-  { href: "https://substack.com/@edsenaysanchez", label: "Writing" },
+  { href: "#contact", label: "Contact" },
 ];
 
 const isExternal = (href) => /^https?:\/\//.test(href);
@@ -82,17 +82,17 @@ const externalProps = (href) =>
     : {};
 
 const primaryBtn =
-  "inline-flex items-center justify-center gap-2 text-sm font-600 text-white bg-blue-600 hover:bg-blue-500 px-5 py-3 rounded-lg shadow-lg shadow-blue-600/25 hover:shadow-blue-500/35 transition-all duration-200";
+  "inline-flex items-center justify-center gap-2 text-sm font-600 text-white bg-blue-600 hover:bg-blue-700 px-5 py-3 rounded-lg shadow-lg shadow-blue-600/25 hover:shadow-blue-600/35 transition-all duration-200";
 const secondaryBtn =
   "inline-flex items-center justify-center gap-2 text-sm font-600 text-paper-50 bg-white/[0.04] hover:bg-white/[0.09] border border-white/15 hover:border-white/25 px-5 py-3 rounded-lg transition-colors duration-200";
 
 const MARKETTHIS_URL = "https://www.marketthis.io";
-const mtUrl = (placement, content) =>
-  `${MARKETTHIS_URL}/?utm_source=portfolio&utm_medium=${placement}&utm_content=${content}`;
+const mtUrl = (placement, content, path = "/") =>
+  `${MARKETTHIS_URL}${path}?utm_source=portfolio&utm_medium=referral&utm_campaign=founder_site&utm_content=${placement}_${content}`;
 
 // The live MarketThis product is self-serve. Every product CTA on this page drives
-// there ("Plan my first month") with UTMs + a GA4 outbound event so the handoff is
-// measurable, and shared so the hero, spotlight, and closing band never drift apart.
+// there ("Plan my first month of ads") with UTMs + a GA4 outbound event so the handoff
+// is measurable, and shared so the hero, spotlight, and closing band never drift apart.
 function ProductCtas({ placement, align = "left", className = "" }) {
   return (
     <div className={`flex flex-col ${align === "center" ? "items-center" : ""} ${className}`}>
@@ -104,22 +104,22 @@ function ProductCtas({ placement, align = "left", className = "" }) {
           onClick={() => track("open_marketthis", { placement, cta: "plan_first_month" })}
           className={primaryBtn}
         >
-          Plan my first month
+          Plan my first month of ads
           <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
             <path d="M7 17L17 7M17 7H7M17 7v10" />
           </svg>
         </a>
         <a
-          href={mtUrl(placement, "book_demo")}
+          href={mtUrl(placement, "live_demo", "/demo")}
           target="_blank"
           rel="noopener noreferrer"
-          onClick={() => track("open_marketthis", { placement, cta: "book_demo" })}
+          onClick={() => track("open_marketthis", { placement, cta: "live_demo" })}
           className={secondaryBtn}
         >
-          Book a demo
+          See the live demo
         </a>
       </div>
-      <p className="mt-3 text-sm font-500 text-mist-400">No signup. 30 seconds.</p>
+      <p className="mt-3 text-sm font-500 text-mist-400">Free plan. No signup. 30 seconds.</p>
     </div>
   );
 }
@@ -183,10 +183,16 @@ function Header() {
             </svg>
           </button>
           <a
-            href="#contact"
-            className="text-sm font-600 text-white bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded-lg shadow-lg shadow-blue-600/20 transition-all duration-200"
+            href={mtUrl("header", "plan_first_month")}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() =>
+              track("open_marketthis", { placement: "header", cta: "plan_first_month" })
+            }
+            className="text-sm font-600 text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg shadow-lg shadow-blue-600/20 transition-all duration-200"
           >
-            Get in Touch
+            <span className="sm:hidden">Get my plan</span>
+            <span className="hidden sm:inline">Plan my first month</span>
           </a>
         </div>
       </div>
@@ -221,29 +227,30 @@ function Hero() {
       <div className="relative max-w-6xl mx-auto px-6 pt-16 lg:pt-24 pb-20 lg:pb-28 animate-fade-up">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
           <div className="lg:col-span-6">
-            <h1 className="font-display font-800 text-5xl sm:text-6xl lg:text-7xl leading-[0.98] text-paper-50 mb-6">
+            <h1 className="font-display font-800 text-5xl sm:text-6xl leading-[0.98] text-paper-50 mb-6">
               If you can ship a product on a weekend,{" "}
               <span className="text-blue-300">
                 you should be able to market it on one.
               </span>
             </h1>
             <p className="text-lg sm:text-xl text-mist-300 leading-relaxed max-w-xl mb-4">
-              MarketThis gives founders a first-month paid plan in 30 seconds:
+              MarketThis gives founders a first-month ad plan in 30 seconds:
               where to spend, what to bid, what to post. When the budget grows,
-              the same platform runs attribution, signals, and one-click budget
-              moves.
+              the same platform shows which channels actually drive revenue and
+              moves budget in one click.
             </p>
             <p className="text-sm text-mist-400 leading-relaxed max-w-xl mb-8">
               Built for founders with a product and no playbook. No retainer, no
-              six-month implementation, no dashboard graveyard.
+              six-month implementation, no dashboards you stop opening.
             </p>
 
             <ProductCtas placement="hero" />
 
             <p className="mt-6 text-sm font-500 text-mist-400">
-              I&apos;m Ed Senay, building MarketThis. The operator behind{" "}
-              <span className="font-700 text-paper-50">$200M+/yr</span> in managed
-              ad spend at Scale Marketing.
+              I&apos;m Ed Senay, building MarketThis. I run the data and ML
+              platform behind{" "}
+              <span className="font-700 text-paper-50">$200M+/yr</span> in ad
+              spend at Scale Marketing.
             </p>
           </div>
 
@@ -252,7 +259,7 @@ function Hero() {
               href={mtUrl("hero_image", "product_screenshot")}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Plan my first month on MarketThis"
+              aria-label="Plan my first month of ads on MarketThis"
               onClick={() => track("open_marketthis", { placement: "hero_image", cta: "product_screenshot" })}
               className="block relative group"
             >
@@ -266,7 +273,7 @@ function Hero() {
                     src="/marketthis.webp"
                     width={1280}
                     height={880}
-                    alt="The MarketThis app generating a first-month paid media plan, splitting budget across Meta and TikTok with creative, targeting, and timeline."
+                    alt="A MarketThis first-month ad plan for a $2,500 budget: allocation across Meta, TikTok, Google Search, and CTV with channel benchmarks, audiences, and ready-to-paste ad copy."
                     fetchPriority="high"
                     decoding="async"
                     className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.02]"
@@ -295,11 +302,10 @@ function MarketThisSpotlight() {
             <span className="text-blue-300">like you ship code</span>.
           </h2>
           <p className="text-lg text-mist-300 leading-relaxed">
-            Dev infra made shipping software trivial. Concept to 1.0 to
-            iteration, all on a credit card. Marketing has no equivalent.
-            Once you have built something you still need to brand it, build
-            it out, and market it. MarketThis is the stack that makes all
-            three feel like infra, not a consulting engagement.
+            Vercel made deploying software trivial. Terraform made the rest
+            of the stack code. Marketing has no equivalent. MarketThis starts
+            with the piece you need first, a real first-month ad plan, and
+            grows into the rest: brand, site, and campaigns, run like code.
           </p>
         </div>
 
@@ -311,7 +317,7 @@ function MarketThisSpotlight() {
               style={{ animationDelay: `${i * 80}ms` }}
             >
               <p className="font-mono text-[11px] font-500 tracking-[0.18em] uppercase text-blue-300 mb-3">
-                <span className="text-mist-500">0{i + 1} /</span> {f.label}
+                <span className="text-mist-400">0{i + 1} /</span> {f.label}
               </p>
               <h3 className="font-display font-700 text-xl text-paper-50 mb-2">
                 {f.title}
@@ -330,7 +336,7 @@ function MarketThisSpotlight() {
 }
 
 const credibilityStats = [
-  { value: "$200M+", label: "Annual ad spend on platforms my team builds" },
+  { value: "$200M+", label: "Annual ad spend guided by my team's data and ML platform" },
   { value: "20%", label: "YoY growth at the agency where I lead data ops" },
   { value: "12", label: "Engineers, ML scientists, designers on my team" },
 ];
@@ -362,7 +368,8 @@ function CredibilityBand() {
             >
               Scale Marketing
             </a>
-            &apos;s ad spend. MarketThis is what I wish my clients had.
+            &apos;s ad spend. MarketThis is that machinery, rebuilt so a
+            founder can use it on day one.
           </h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-y-14 md:gap-y-0">
@@ -421,7 +428,7 @@ function SideProjectCard({ product, index }) {
           className="absolute inset-0 w-full h-full object-cover object-top
                      transition-transform duration-500 ease-out group-hover:scale-[1.03]"
         />
-        <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-black/30 to-transparent pointer-events-none" />
+        <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-black/15 to-transparent pointer-events-none" />
         <div className="absolute top-4 right-4">
           <StatusBadge status={product.status} />
         </div>
@@ -457,7 +464,7 @@ function SideProjectCard({ product, index }) {
               <p className="font-display font-700 text-sm text-paper-50 leading-tight">
                 {m.value}
               </p>
-              <p className="font-mono text-[10px] uppercase tracking-wide text-mist-500 mt-0.5">
+              <p className="font-mono text-[10px] uppercase tracking-wide text-mist-400 mt-0.5">
                 {m.label}
               </p>
             </div>
@@ -466,6 +473,7 @@ function SideProjectCard({ product, index }) {
             href={product.url}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => track("open_side_project", { project: product.title })}
             className="ml-auto inline-flex items-center gap-1 text-xs font-600 text-blue-300 hover:text-blue-200 transition-colors duration-200 self-center"
           >
             Open
@@ -486,12 +494,12 @@ function AlsoBuilding() {
         <div>
           <Eyebrow className="mb-2">Also shipped</Eyebrow>
           <h2 className="font-display font-700 text-2xl sm:text-3xl text-paper-50">
-            Two products I built and run end to end.
+            Two products I shipped end to end.
           </h2>
         </div>
         <p className="text-sm text-mist-400 max-w-md">
           Live and used by real people. ValidateThis runs the phones for repair
-          shops, 12,000+ calls and messages handled.
+          shops, 12,000+ calls and texts handled.
         </p>
       </div>
 
@@ -510,15 +518,18 @@ function GetStarted() {
       <div className="relative rounded-lg bg-base-800 border border-blue-400/20 px-6 py-16 sm:px-12 lg:px-16 text-center">
         <Eyebrow className="mb-4">Get started</Eyebrow>
         <h2 className="font-display font-800 text-3xl sm:text-4xl lg:text-5xl leading-[1.05] text-paper-50 mb-5 max-w-2xl mx-auto">
-          Get your first-month plan in{" "}
+          Get your first-month ad plan in{" "}
           <span className="text-blue-300">30 seconds</span>.
         </h2>
         <p className="text-mist-300 leading-relaxed max-w-lg mx-auto mb-8">
-          Connect an ad account and MarketThis plans where to spend, what to bid,
-          and what to post. No retainer, no six-month implementation, no
-          dashboard graveyard.
+          Tell MarketThis what you sell and what you can spend. It plans where
+          to spend, what to bid, and what to post. Connect an ad account later
+          and your real CPCs replace the estimates.
         </p>
         <ProductCtas placement="cta_band" align="center" />
+        <p className="mt-4 text-sm text-mist-400">
+          Your first plan is free. The full platform starts at $300/mo.
+        </p>
       </div>
     </section>
   );
@@ -578,32 +589,25 @@ function About() {
               They patch it together across five tools and a Notion doc.
               MarketThis is the stack I wish they all had.
             </p>
-            <p className="text-mist-200 leading-relaxed">
-              I write about data operations, attribution, and shipping
-              products on{" "}
-              <a
-                href="https://substack.com/@edsenaysanchez"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-300 hover:text-blue-200 font-600 underline underline-offset-2 decoration-blue-400/40 hover:decoration-blue-300 transition-colors duration-200"
-              >
-                Substack
-              </a>
-              .
-            </p>
-
             <div className="mt-3 p-5 rounded-lg bg-blue-500/[0.08] border border-blue-400/20">
               <p className="font-mono text-[11px] font-500 tracking-[0.18em] uppercase text-blue-300 mb-2">
                 Currently
               </p>
               <p className="text-sm text-mist-200 leading-relaxed">
-                Building MarketThis from zero as a data-ops founder. Open to
+                Building MarketThis from zero as a data-ops founder. It gets
+                my focus. ChiTix and ValidateThis run themselves. Open to
                 advisory conversations on data ops, attribution, and ML at
                 scale.
               </p>
             </div>
 
             <div id="contact" className="scroll-mt-24 mt-4">
+              <p className="font-mono text-[11px] font-500 tracking-[0.18em] uppercase text-blue-300 mb-2">
+                Contact
+              </p>
+              <p className="text-sm text-mist-300 leading-relaxed mb-4">
+                Advisory, investing, or product questions. Email is fastest.
+              </p>
               <a
                 href="mailto:support@marketthis.io?subject=MarketThis"
                 className={primaryBtn}
@@ -615,9 +619,8 @@ function About() {
                 </svg>
                 Email Ed
               </a>
-            </div>
 
-            <div className="flex flex-wrap gap-x-6 gap-y-2 mt-4">
+              <div className="flex flex-wrap gap-x-6 gap-y-2 mt-6">
               <a
                 href="https://www.linkedin.com/in/ed-senay-sanchez-2049402b9/"
                 target="_blank"
@@ -628,17 +631,6 @@ function About() {
                   <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
                 </svg>
                 LinkedIn
-              </a>
-              <a
-                href="https://substack.com/@edsenaysanchez"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2.5 text-sm text-mist-400 hover:text-blue-300 transition-colors duration-200 py-1.5"
-              >
-                <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z" />
-                </svg>
-                Substack
               </a>
               <a
                 href="https://github.com/esanche1"
@@ -662,6 +654,7 @@ function About() {
                 </svg>
                 Email
               </a>
+              </div>
             </div>
           </div>
         </div>
@@ -679,7 +672,7 @@ function Footer() {
           <span className="font-display font-800 text-sm text-paper-50">
             Ed Senay
           </span>
-          <span className="text-mist-500 text-xs">
+          <span className="text-mist-400 text-xs">
             &middot; Building MarketThis &middot; Chicago, IL &middot; &copy; {year}
           </span>
         </div>
@@ -699,14 +692,6 @@ function Footer() {
             className="text-xs text-mist-400 hover:text-blue-300 transition-colors duration-200"
           >
             LinkedIn
-          </a>
-          <a
-            href="https://substack.com/@edsenaysanchez"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-xs text-mist-400 hover:text-blue-300 transition-colors duration-200"
-          >
-            Substack
           </a>
           <a
             href="https://github.com/esanche1"
@@ -736,8 +721,8 @@ export default function App() {
       <Hero />
       <MarketThisSpotlight />
       <CredibilityBand />
-      <AlsoBuilding />
       <GetStarted />
+      <AlsoBuilding />
       <About />
       <Footer />
     </div>
