@@ -32,17 +32,17 @@ const sideProjects = [
     id: 2,
     title: "ValidateThis.io",
     description:
-      "The AI agent for auto repair shops. Answers every call, text, and chat 24/7, books the job, and chases every insurance supplement and disputed claim until the shop gets paid.",
-    category: "Vertical AI",
-    status: "Live",
+      "Plain-English data validation. Upload a dataset, describe the rules, and Bedrock turns them into checks that run in seconds. Built and deployed end to end, Stripe billing included.",
+    category: "Data Quality",
+    status: "Deployed",
     image: validateThisImg,
     imageAlt:
-      "ValidateThis dashboard tracking repair-shop calls, bookings, and insurance supplements.",
+      "ValidateThis landing page for the plain-English data validation platform.",
     url: "https://www.validatethis.io",
-    stack: ["Voice AI", "Twilio", "Next.js", "Postgres"],
+    stack: ["Bedrock", "FastAPI", "React", "Stripe"],
     metrics: [
-      { label: "Calls + texts handled", value: "12,000+" },
-      { label: "Revenue lift, pilot shops", value: "+18%" },
+      { label: "Rules", value: "Plain English" },
+      { label: "Infra", value: "AWS serverless" },
     ],
   },
 ];
@@ -494,12 +494,13 @@ function AlsoBuilding() {
         <div>
           <Eyebrow className="mb-2">Also shipped</Eyebrow>
           <h2 className="font-display font-700 text-2xl sm:text-3xl text-paper-50">
-            Two products I shipped end to end.
+            Two products I built end to end.
           </h2>
         </div>
         <p className="text-sm text-mist-400 max-w-md">
-          Live and used by real people. ValidateThis runs the phones for repair
-          shops, 12,000+ calls and texts handled.
+          ChiTix is live and tracking prices today. ValidateThis, a
+          plain-English data validation SaaS, is built and deployed, parked
+          while MarketThis gets the focus.
         </p>
       </div>
 
