@@ -49,23 +49,48 @@ const sideProjects = [
 
 const marketThisFeatures = [
   {
-    label: "Market",
-    title: "Spend that moves like code.",
+    label: "Signals",
+    title: "BUY / HOLD / SELL, from a model.",
     description:
-      "Connect your ad accounts. Plan, apply, and roll back budget across platforms instead of bouncing between five tabs.",
+      "An attribution model fitted to your spend history prices every channel nightly: response curves, carryover, confidence scores. When it can't be confident yet, it says so.",
+    icon: (
+      <svg className="w-4.5 h-4.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M3 17l6-6 4 4 8-8" />
+        <path d="M15 7h6v6" />
+      </svg>
+    ),
   },
   {
-    label: "Brand",
-    title: "Brand identity, in minutes.",
+    label: "Chat",
+    title: "Ask in plain language.",
     description:
-      "Naming, logo, palette, voice. A coherent brand stack you can ship straight to production or hand to a designer.",
+      "An MCP server puts your portfolio in Claude, ChatGPT, or Cursor: 20 tools your AI can call to read performance and propose budget moves, backed by the model's signals.",
+    icon: (
+      <svg className="w-4.5 h-4.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M4 17l6-5-6-5" />
+        <path d="M12 19h8" />
+      </svg>
+    ),
   },
   {
-    label: "Build",
-    title: "Sites that ship themselves.",
+    label: "Approval",
+    title: "Nothing executes without you.",
     description:
-      "Marketing site, landing pages, lifecycle email. Components that adapt to your brand and your data, not the other way around.",
+      "Every proposal lands with current vs. proposed and the rationale. One click to approve, and MarketThis pushes the change via your connected OAuth. Zero moves auto-executed.",
+    icon: (
+      <svg className="w-4.5 h-4.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M12 3l7 3v5c0 4.6-3 7.7-7 9-4-1.3-7-4.4-7-9V6l7-3z" />
+        <path d="M9 12l2 2 4-4" />
+      </svg>
+    ),
   },
+];
+
+const deskFacts = [
+  { value: "$300/mo", label: "Starting price, no retainer" },
+  { value: "0", label: "Changes auto-executed" },
+  { value: "1-click", label: "To approve a budget move" },
+  { value: "20", label: "Tools your AI can call" },
 ];
 
 const navLinks = [
@@ -91,20 +116,21 @@ const mtUrl = (placement, content, path = "/") =>
   `${MARKETTHIS_URL}${path}?utm_source=portfolio&utm_medium=referral&utm_campaign=founder_site&utm_content=${placement}_${content}`;
 
 // The live MarketThis product is self-serve. Every product CTA on this page drives
-// there ("Plan my first month of ads") with UTMs + a GA4 outbound event so the handoff
-// is measurable, and shared so the hero, spotlight, and closing band never drift apart.
+// there (the /plan lead magnet or the /demo walkthrough) with UTMs + a GA4 outbound
+// event so the handoff is measurable, and shared so the hero, spotlight, and closing
+// band never drift apart.
 function ProductCtas({ placement, align = "left", className = "" }) {
   return (
     <div className={`flex flex-col ${align === "center" ? "items-center" : ""} ${className}`}>
       <div className="flex flex-col sm:flex-row gap-3">
         <a
-          href={mtUrl(placement, "plan_first_month")}
+          href={mtUrl(placement, "plan_first_month", "/plan")}
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => track("open_marketthis", { placement, cta: "plan_first_month" })}
           className={primaryBtn}
         >
-          Plan my first month of ads
+          Plan my first month
           <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
             <path d="M7 17L17 7M17 7H7M17 7v10" />
           </svg>
@@ -119,7 +145,9 @@ function ProductCtas({ placement, align = "left", className = "" }) {
           See the live demo
         </a>
       </div>
-      <p className="mt-3 text-sm font-500 text-mist-400">Free plan. No signup. 30 seconds.</p>
+      <p className="mt-3 text-sm font-500 text-mist-400">
+        Free 30-second plan, no signup. 14-day trial, cancel anytime.
+      </p>
     </div>
   );
 }
@@ -183,7 +211,7 @@ function Header() {
             </svg>
           </button>
           <a
-            href={mtUrl("header", "plan_first_month")}
+            href={mtUrl("header", "plan_first_month", "/plan")}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() =>
@@ -220,6 +248,91 @@ function Header() {
   );
 }
 
+// A hand-built rendering of the same approval flow the live product demos on its
+// homepage: Claude proposes a budget move over MCP, the human approves, MarketThis
+// pushes it. Crisp at every viewport, unlike a scaled-down screenshot.
+function HeroMock() {
+  return (
+    <a
+      href={mtUrl("hero_mock", "live_demo", "/demo")}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="See the live MarketThis demo: Claude proposes a budget move, you approve it"
+      onClick={() => track("open_marketthis", { placement: "hero_mock", cta: "live_demo" })}
+      className="block relative group"
+    >
+      <div
+        aria-hidden="true"
+        className="absolute -inset-6 rounded-full bg-blue-500/15 blur-3xl opacity-70 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+      />
+      <div className="relative rounded-xl overflow-hidden border border-white/15 bg-base-900/95 shadow-2xl shadow-black/50 ring-1 ring-blue-400/10 group-hover:ring-blue-400/30 group-hover:border-white/25 transition-all duration-300">
+        <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.07] bg-white/[0.03]">
+          <span aria-hidden="true" className="flex gap-1.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-white/15" />
+            <span className="w-2.5 h-2.5 rounded-full bg-white/15" />
+            <span className="w-2.5 h-2.5 rounded-full bg-white/15" />
+          </span>
+          <span className="ml-1 font-mono text-xs text-mist-400">
+            claude &middot; marketthis mcp
+          </span>
+          <span className="ml-auto font-mono text-[10px] font-500 tracking-wider uppercase text-amber-300 bg-amber-400/10 border border-amber-400/25 px-2 py-0.5 rounded-full">
+            1 pending
+          </span>
+        </div>
+
+        <div className="p-4 sm:p-5 font-mono text-xs sm:text-[13px] leading-relaxed">
+          <p className="text-mist-200">
+            <span className="text-mist-500">&gt;</span> CAC on Meta is climbing.
+            Shift $200/wk to TikTok while ROAS holds.
+          </p>
+          <p className="mt-3 text-blue-300 break-words">
+            propose_budget_change(
+            <span className="text-paper-50">&quot;meta-prospecting&quot;</span>,{" "}
+            <span className="text-paper-50">&quot;tiktok-creator&quot;</span>, 200)
+          </p>
+
+          <div className="mt-4 flex flex-col gap-2">
+            <div className="flex items-center gap-2.5 rounded-lg border border-red-400/20 bg-red-400/[0.06] px-3 py-2.5">
+              <span className="font-600 text-[10px] tracking-wider text-red-300 bg-red-400/15 border border-red-400/30 px-1.5 py-0.5 rounded">
+                SELL
+              </span>
+              <span className="text-paper-50 font-500 truncate">Meta Prospecting</span>
+              <span className="hidden sm:inline text-mist-500">2.1x</span>
+              <span className="ml-auto hidden sm:inline text-mist-400 whitespace-nowrap">
+                $1,200 <span className="text-mist-500">&rarr;</span> $1,000
+              </span>
+              <span className="ml-auto sm:ml-0 text-red-300 whitespace-nowrap">-$200</span>
+            </div>
+            <div className="flex items-center gap-2.5 rounded-lg border border-emerald-400/20 bg-emerald-400/[0.06] px-3 py-2.5">
+              <span className="font-600 text-[10px] tracking-wider text-emerald-300 bg-emerald-400/15 border border-emerald-400/30 px-1.5 py-0.5 rounded">
+                BUY
+              </span>
+              <span className="text-paper-50 font-500 truncate">TikTok Creator</span>
+              <span className="hidden sm:inline text-mist-500">4.3x</span>
+              <span className="ml-auto hidden sm:inline text-mist-400 whitespace-nowrap">
+                $800 <span className="text-mist-500">&rarr;</span> $1,000
+              </span>
+              <span className="ml-auto sm:ml-0 text-emerald-300 whitespace-nowrap">+$200</span>
+            </div>
+          </div>
+
+          <div className="mt-4 flex gap-2 font-body">
+            <span className="flex-1 text-center text-xs font-600 text-white bg-blue-600 group-hover:bg-blue-500 px-3 py-2 rounded-md transition-colors duration-200">
+              Approve &amp; push
+            </span>
+            <span className="text-center text-xs font-600 text-mist-300 border border-white/15 px-4 py-2 rounded-md">
+              Reject
+            </span>
+          </div>
+        </div>
+      </div>
+      <p className="mt-4 text-center font-mono text-[11px] leading-relaxed text-mist-500">
+        The AI proposes. You approve. MarketThis pushes it via your connected OAuth.
+      </p>
+    </a>
+  );
+}
+
 function Hero() {
   return (
     <section className="relative overflow-hidden">
@@ -227,21 +340,22 @@ function Hero() {
       <div className="relative max-w-6xl mx-auto px-6 pt-16 lg:pt-24 pb-20 lg:pb-28 animate-fade-up">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
           <div className="lg:col-span-6">
-            <h1 className="font-display font-800 text-5xl sm:text-6xl leading-[0.98] text-paper-50 mb-6">
-              If you can ship a product on a weekend,{" "}
+            <Eyebrow className="mb-5">The marketing trading desk</Eyebrow>
+            <h1 className="font-display font-800 text-balance text-4xl sm:text-6xl leading-[1.02] sm:leading-[0.98] text-paper-50 mb-6">
+              Your ad budget is a portfolio.{" "}
               <span className="text-blue-300">
-                you should be able to market it on one.
+                MarketThis is the trading desk.
               </span>
             </h1>
             <p className="text-lg sm:text-xl text-mist-300 leading-relaxed max-w-xl mb-4">
-              MarketThis gives founders a first-month ad plan in 30 seconds:
-              where to spend, what to bid, what to post. When the budget grows,
-              the same platform shows which channels actually drive revenue and
-              moves budget in one click.
+              An attribution model fitted to your real spend prices every
+              channel: P&amp;L, BUY / HOLD / SELL signals, and budget moves you
+              push with one click from Claude, ChatGPT, or Cursor. You approve
+              every move.
             </p>
             <p className="text-sm text-mist-400 leading-relaxed max-w-xl mb-8">
-              Built for founders with a product and no playbook. No retainer, no
-              six-month implementation, no dashboards you stop opening.
+              The work of a $5-15K/mo agency, from $300/mo. No retainer, no
+              six-month contract, no dashboards you stop opening.
             </p>
 
             <ProductCtas placement="hero" />
@@ -255,32 +369,7 @@ function Hero() {
           </div>
 
           <div className="lg:col-span-6 max-w-[560px] mx-auto lg:max-w-none w-full">
-            <a
-              href={mtUrl("hero_image", "product_screenshot")}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Plan my first month of ads on MarketThis"
-              onClick={() => track("open_marketthis", { placement: "hero_image", cta: "product_screenshot" })}
-              className="block relative group"
-            >
-              <div className="relative aspect-[16/11] rounded-lg overflow-hidden border border-white/15 bg-base-900 shadow-2xl shadow-black/50 ring-1 ring-blue-400/10 group-hover:ring-blue-400/30 group-hover:border-white/25 transition-all duration-300">
-                <picture>
-                  <source
-                    media="(max-width: 640px)"
-                    srcSet="/marketthis-mobile.webp"
-                  />
-                  <img
-                    src="/marketthis.webp"
-                    width={1280}
-                    height={880}
-                    alt="A MarketThis first-month ad plan for a $2,500 budget: allocation across Meta, TikTok, Google Search, and CTV with channel benchmarks, audiences, and ready-to-paste ad copy."
-                    fetchPriority="high"
-                    decoding="async"
-                    className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.02]"
-                  />
-                </picture>
-              </div>
-            </a>
+            <HeroMock />
           </div>
         </div>
       </div>
@@ -295,18 +384,32 @@ function MarketThisSpotlight() {
       className="relative overflow-hidden bg-base-900 border-y border-white/[0.07]"
     >
       <div className="relative max-w-6xl mx-auto px-6 py-24 lg:py-28">
-        <div className="max-w-3xl mb-14">
-          <Eyebrow className="mb-4">What I&apos;m building</Eyebrow>
-          <h2 className="font-display font-800 text-4xl sm:text-5xl lg:text-6xl leading-[1.02] text-paper-50 mb-6">
-            Brand, build, and market{" "}
-            <span className="text-blue-300">like you ship code</span>.
-          </h2>
-          <p className="text-lg text-mist-300 leading-relaxed">
-            Vercel made deploying software trivial. Terraform made the rest
-            of the stack code. Marketing has no equivalent. MarketThis starts
-            with the piece you need first, a real first-month ad plan, and
-            grows into the rest: brand, site, and campaigns, run like code.
-          </p>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start mb-14">
+          <div className="lg:col-span-8 max-w-3xl">
+            <Eyebrow className="mb-4">What I&apos;m building</Eyebrow>
+            <h2 className="font-display font-800 text-balance text-4xl sm:text-5xl lg:text-6xl leading-[1.02] text-paper-50 mb-6">
+              Agency-grade analysis,{" "}
+              <span className="text-blue-300">run like a trading desk</span>.
+            </h2>
+            <p className="text-lg text-mist-300 leading-relaxed">
+              Teams spending $10K to $200K a month on paid either fly blind or
+              pay a $5-15K/mo retainer. MarketThis replaces both: a real
+              attribution model prices every channel, your AI proposes the
+              moves, and nothing ships until you approve it.
+            </p>
+          </div>
+          <dl className="lg:col-span-4 grid grid-cols-2 gap-px rounded-lg overflow-hidden border border-white/[0.08] bg-white/[0.06]">
+            {deskFacts.map((fact) => (
+              <div key={fact.label} className="flex flex-col bg-base-900 p-4 lg:p-5">
+                <dt className="order-2 font-mono text-[10px] font-500 tracking-wide uppercase text-mist-400 leading-relaxed">
+                  {fact.label}
+                </dt>
+                <dd className="order-1 font-display font-700 text-2xl text-paper-50 mb-1.5">
+                  {fact.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6 mb-12">
@@ -316,9 +419,18 @@ function MarketThisSpotlight() {
               className="group relative p-6 lg:p-7 rounded-lg bg-base-800/80 border border-white/[0.08] hover:border-blue-400/35 hover:bg-base-800 transition-colors duration-300 animate-fade-up"
               style={{ animationDelay: `${i * 80}ms` }}
             >
-              <p className="font-mono text-[11px] font-500 tracking-[0.18em] uppercase text-blue-300 mb-3">
-                <span className="text-mist-400">0{i + 1} /</span> {f.label}
-              </p>
+              <div
+                aria-hidden="true"
+                className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-blue-400/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              />
+              <div className="flex items-center justify-between mb-4">
+                <span className="flex items-center justify-center w-9 h-9 rounded-md text-blue-300 bg-blue-500/10 border border-blue-400/20 group-hover:bg-blue-500/15 transition-colors duration-300">
+                  {f.icon}
+                </span>
+                <p className="font-mono text-[11px] font-500 tracking-[0.18em] uppercase text-blue-300">
+                  <span className="text-mist-400">0{i + 1} /</span> {f.label}
+                </p>
+              </div>
               <h3 className="font-display font-700 text-xl text-paper-50 mb-2">
                 {f.title}
               </h3>
@@ -358,7 +470,7 @@ function CredibilityBand() {
           <Eyebrow tone="light" className="mb-4">
             Why I can build this
           </Eyebrow>
-          <h2 className="font-display font-700 text-2xl sm:text-3xl text-inkwell-900 leading-snug">
+          <h2 className="font-display font-700 text-balance text-2xl sm:text-3xl text-inkwell-900 leading-snug">
             By day I run the data and ML platform behind{" "}
             <a
               href="https://www.scale-marketing.com"
@@ -368,8 +480,8 @@ function CredibilityBand() {
             >
               Scale Marketing
             </a>
-            &apos;s ad spend. MarketThis is that machinery, rebuilt so a
-            founder can use it on day one.
+            &apos;s ad spend. MarketThis is that machinery, rebuilt as a
+            trading desk any team can run from $300 a month.
           </h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-y-14 md:gap-y-0">
@@ -380,7 +492,7 @@ function CredibilityBand() {
                 i > 0 ? "md:border-l md:border-inkwell-900/10" : ""
               }`}
             >
-              <p className="font-display font-800 leading-[0.95] text-inkwell-900 text-6xl sm:text-7xl lg:text-8xl">
+              <p className="font-display font-800 leading-[0.95] tracking-tight text-inkwell-900 text-5xl sm:text-6xl lg:text-7xl">
                 {s.value}
               </p>
               <p className="mt-5 font-mono text-xs font-500 tracking-wide uppercase text-inkwell-500 max-w-[26ch] mx-auto leading-relaxed">
@@ -516,21 +628,27 @@ function AlsoBuilding() {
 function GetStarted() {
   return (
     <section id="get-started" className="scroll-mt-24 max-w-6xl mx-auto px-6 py-24">
-      <div className="relative rounded-lg bg-base-800 border border-blue-400/20 px-6 py-16 sm:px-12 lg:px-16 text-center">
-        <Eyebrow className="mb-4">Get started</Eyebrow>
-        <h2 className="font-display font-800 text-3xl sm:text-4xl lg:text-5xl leading-[1.05] text-paper-50 mb-5 max-w-2xl mx-auto">
-          Get your first-month ad plan in{" "}
-          <span className="text-blue-300">30 seconds</span>.
-        </h2>
-        <p className="text-mist-300 leading-relaxed max-w-lg mx-auto mb-8">
-          Tell MarketThis what you sell and what you can spend. It plans where
-          to spend, what to bid, and what to post. Connect an ad account later
-          and your real CPCs replace the estimates.
-        </p>
-        <ProductCtas placement="cta_band" align="center" />
-        <p className="mt-4 text-sm text-mist-400">
-          Your first plan is free. The full platform starts at $300/mo.
-        </p>
+      <div className="relative overflow-hidden rounded-lg bg-base-800 border border-blue-400/25 px-6 py-16 sm:px-12 lg:px-16 text-center">
+        <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
+          <div className="absolute -top-28 left-1/2 -translate-x-1/2 w-[560px] h-[300px] rounded-full bg-blue-500/20 blur-3xl" />
+          <div className="absolute inset-0 grid-lines opacity-70" />
+        </div>
+        <div className="relative">
+          <Eyebrow className="mb-4">Get started</Eyebrow>
+          <h2 className="font-display font-800 text-balance text-3xl sm:text-4xl lg:text-5xl leading-[1.05] text-paper-50 mb-5 max-w-2xl mx-auto">
+            Get a first-month ad plan in{" "}
+            <span className="text-blue-300">30 seconds</span>.
+          </h2>
+          <p className="text-mist-300 leading-relaxed max-w-lg mx-auto mb-8">
+            Generate a free plan, no signup: where to spend, what to bid, what
+            to post. Then connect your ad accounts and the desk prices your
+            real channels: P&amp;L, BUY / HOLD / SELL, one-click budget moves.
+          </p>
+          <ProductCtas placement="cta_band" align="center" />
+          <p className="mt-4 text-sm text-mist-400">
+            The full desk starts at $300/mo. No retainer.
+          </p>
+        </div>
       </div>
     </section>
   );
@@ -552,11 +670,19 @@ function About() {
                     Add the image to src/assets, import it, and render:
                     <img src={portrait} alt="Ed Senay" loading="lazy" decoding="async"
                          className="absolute inset-0 w-full h-full object-cover object-center" /> */}
+                <div aria-hidden="true" className="absolute inset-0 grid-lines opacity-80" />
+                <div
+                  aria-hidden="true"
+                  className="absolute -bottom-16 -right-16 w-48 h-48 rounded-full bg-blue-500/20 blur-3xl"
+                />
                 <div className="absolute inset-0 flex items-center justify-center">
                   <span className="font-display font-800 text-7xl text-blue-400/80 select-none">
                     ES
                   </span>
                 </div>
+                <span className="absolute bottom-4 left-4 font-mono text-[10px] font-500 tracking-[0.18em] uppercase text-mist-400">
+                  Chicago, IL
+                </span>
               </div>
               <div className="mt-5">
                 <p className="font-display font-700 text-base text-paper-50">
@@ -588,7 +714,7 @@ function About() {
               have no marketing playbook, and companies with real ad budgets
               and no infrastructure to act on what their data is telling them.
               They patch it together across five tools and a Notion doc.
-              MarketThis is the stack I wish they all had.
+              MarketThis is the desk I wish they all had.
             </p>
             <div className="mt-3 p-5 rounded-lg bg-blue-500/[0.08] border border-blue-400/20">
               <p className="font-mono text-[11px] font-500 tracking-[0.18em] uppercase text-blue-300 mb-2">
