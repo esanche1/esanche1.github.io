@@ -1,6 +1,8 @@
 import { useState } from "react";
 import chiTixImg from "./assets/chitix.webp";
 import validateThisImg from "./assets/validatethis.webp";
+import heroRidgeImg from "./assets/hero-ridge.webp";
+import ctaSummitImg from "./assets/cta-summit.webp";
 
 // Fire a GA4 event when the gtag.js tag is present (loaded in index.html).
 // Safe no-op locally or when analytics is blocked.
@@ -336,7 +338,22 @@ function HeroMock() {
 function Hero() {
   return (
     <section className="relative overflow-hidden">
-      <div aria-hidden="true" className="absolute inset-0 grid-lines pointer-events-none" />
+      {/* Generated brand backdrop: market chart lines rendered as a mountain ridge.
+          Scrims keep the headline column at full contrast and fade the image into
+          the base surface before the next section starts. */}
+      <div aria-hidden="true" className="absolute inset-0 pointer-events-none select-none">
+        <img
+          src={heroRidgeImg}
+          alt=""
+          width={2400}
+          height={1019}
+          fetchPriority="high"
+          decoding="async"
+          className="absolute inset-0 w-full h-full object-cover object-bottom"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-base-950/90 via-base-950/45 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-base-950/70 via-transparent to-base-950/80" />
+      </div>
       <div className="relative max-w-6xl mx-auto px-6 pt-16 lg:pt-24 pb-20 lg:pb-28 animate-fade-up">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
           <div className="lg:col-span-6">
@@ -628,10 +645,20 @@ function AlsoBuilding() {
 function GetStarted() {
   return (
     <section id="get-started" className="scroll-mt-24 max-w-6xl mx-auto px-6 py-24">
-      <div className="relative overflow-hidden rounded-lg bg-base-800 border border-blue-400/25 px-6 py-16 sm:px-12 lg:px-16 text-center">
-        <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
-          <div className="absolute -top-28 left-1/2 -translate-x-1/2 w-[560px] h-[300px] rounded-full bg-blue-500/20 blur-3xl" />
-          <div className="absolute inset-0 grid-lines opacity-70" />
+      <div className="relative overflow-hidden rounded-lg bg-base-900 border border-blue-400/25 px-6 py-16 sm:px-12 lg:px-16 text-center">
+        {/* Same generated shoot as the hero: one lit summit, centered under the
+            headline. The scrim holds contrast for the centered copy and buttons. */}
+        <div aria-hidden="true" className="absolute inset-0 pointer-events-none select-none">
+          <img
+            src={ctaSummitImg}
+            alt=""
+            width={1800}
+            height={764}
+            loading="lazy"
+            decoding="async"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-base-950/85 via-base-950/45 to-base-950/85" />
         </div>
         <div className="relative">
           <Eyebrow className="mb-4">Get started</Eyebrow>
@@ -665,15 +692,22 @@ function About() {
         <div className="grid grid-cols-1 md:grid-cols-5 gap-10 lg:gap-14 items-start">
           <div className="md:col-span-2">
             <div className="max-w-[280px]">
-              <div className="relative w-full aspect-square rounded-lg overflow-hidden bg-gradient-to-br from-blue-600/25 via-base-800 to-base-900 border border-white/10">
+              <div className="relative w-full aspect-square rounded-lg overflow-hidden bg-base-900 border border-white/10">
                 {/* TODO: replace this monogram with a real headshot of Ed.
                     Add the image to src/assets, import it, and render:
                     <img src={portrait} alt="Ed Senay" loading="lazy" decoding="async"
                          className="absolute inset-0 w-full h-full object-cover object-center" /> */}
-                <div aria-hidden="true" className="absolute inset-0 grid-lines opacity-80" />
+                <img
+                  src={heroRidgeImg}
+                  alt=""
+                  aria-hidden="true"
+                  loading="lazy"
+                  decoding="async"
+                  className="absolute inset-0 w-full h-full object-cover object-[70%_85%] opacity-70"
+                />
                 <div
                   aria-hidden="true"
-                  className="absolute -bottom-16 -right-16 w-48 h-48 rounded-full bg-blue-500/20 blur-3xl"
+                  className="absolute inset-0 bg-gradient-to-t from-base-950/85 via-base-950/35 to-base-950/55"
                 />
                 <div className="absolute inset-0 flex items-center justify-center">
                   <span className="font-display font-800 text-7xl text-blue-400/80 select-none">
