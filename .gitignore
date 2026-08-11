@@ -31,3 +31,6 @@ dist-ssr
 /marketthis-positioning-spec.md
 /body-check.png
 /substack-live.png
+# Review-session screenshots (Playwright/Impeccable scratch output)
+/*.png
+/.impeccable/

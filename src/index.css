@@ -13,35 +13,54 @@
   --font-weight-700: 700;
   --font-weight-800: 800;
 
-  /* Dark base surfaces, deepest to most raised */
-  --color-base-950: #0a0812;
-  --color-base-900: #110d1c;
-  --color-base-800: #171226;
-  --color-base-700: #221a36;
+  /* Every colour below is sampled from the live marketthis.io "launch control"
+     build (2026-08-10). The product moved off blue entirely; its tokens are
+     --color-accent #ffb000 on --color-desk-bg #080604 with --mc-ink #f2e8d8.
+     If the product reskins again, re-sample here first. Every ratio quoted in
+     these comments is computed, not estimated. */
 
-  /* Warm paper, used for the inverted light section and primary text on dark */
-  --color-paper-50: #f4f0e6;
-  --color-paper-100: #e9e4d8;
-  --color-paper-300: #c9c2b2;
+  /* Warm near-black desk surfaces, deepest to most raised.
+     Product: --color-desk-bg / --color-desk-card / --color-desk-hover. */
+  --color-base-950: #080604;
+  --color-base-900: #100b06;
+  --color-base-800: #171108;
+  --color-base-700: #201810;
 
-  /* Muted lavender-grey text tones for dark surfaces */
-  --color-mist-200: #cdc5df;
-  --color-mist-300: #b4abc9;
-  --color-mist-400: #968cad;
-  --color-mist-500: #786e91;
+  /* Warm paper. Doubles as the inverted light band and as primary text on
+     dark, which is exactly how the product uses --mc-ink. 16.67:1 on base-950. */
+  --color-paper-50: #f2e8d8;
+  --color-paper-100: #e6d9c2;
+  --color-paper-300: #cbbda4;
 
-  /* Ink tones for text on paper surfaces */
-  --color-inkwell-900: #15101f;
-  --color-inkwell-600: #4a4258;
-  --color-inkwell-500: #635a75;
+  /* Warm muted text tones for dark surfaces (product --mc-ink-dim / -mute).
+     Worst case each, against base-950 / 900 / 800: all clear AA at 4.5. */
+  --color-mist-200: #e0d3bd; /* 13.70 / 13.26 / 12.70 */
+  --color-mist-300: #cbbda4; /* 10.94 / 10.59 / 10.14 */
+  --color-mist-400: #a3906f; /*  6.53 /  6.32 /  6.05 */
+  --color-mist-500: #96835f; /*  5.50 /  5.32 /  5.10 */
 
-  /* MarketThis brand blue accent (sampled from the live product: #3b82f6) */
-  --color-blue-200: #bfdbfe;
-  --color-blue-300: #93c5fd;
-  --color-blue-400: #60a5fa;
-  --color-blue-500: #3b82f6;
-  --color-blue-600: #2563eb;
-  --color-blue-700: #1d4ed8;
+  /* Ink tones for text on the paper band */
+  --color-inkwell-900: #140c02; /* 15.98 on paper-50 */
+  --color-inkwell-600: #57452e; /*  7.54 */
+  --color-inkwell-500: #6b573a; /*  5.68 */
+
+  /* MarketThis amber accent, sampled from the live product
+     (--color-accent #ffb000, --mc-amber-bright #ffc133).
+     amber-300 is 12.45:1 on base-950, so it is safe for 11px tracked labels.
+     amber-800 exists because amber is unreadable on the light band: it is the
+     only accent tone that clears AA on paper-50 (5.93:1). */
+  --color-amber-200: #ffe0a3;
+  --color-amber-300: #ffc133;
+  --color-amber-400: #ffb000;
+  --color-amber-500: #f5a800;
+  --color-amber-600: #ffb000;
+  --color-amber-700: #e09a00;
+  --color-amber-800: #7a4e00;
+
+  /* Signal colours matched to the product's --color-profit / --color-loss so
+     BUY and SELL read the same on both surfaces. */
+  --color-emerald-400: #22c55e;
+  --color-red-400: #ef4444;
 
   --animate-fade-up: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
   --animate-fade-in: fade-in 0.5s ease both;
@@ -64,7 +83,7 @@
 }
 
 ::selection {
-  background: var(--color-blue-300);
+  background: var(--color-amber-300);
   color: var(--color-inkwell-900);
 }
 
@@ -75,9 +94,17 @@ html {
 
 /* Visible keyboard focus on every interactive element */
 :where(a, button, [tabindex]):focus-visible {
-  outline: 2px solid var(--color-blue-400);
+  outline: 2px solid var(--color-amber-400);
   outline-offset: 2px;
   border-radius: 4px;
+}
+
+/* amber-400 is 11.04:1 on the dark surfaces but only 1.51:1 on paper-50, well
+   under the 3:1 floor for a focus indicator. The light band opts into the
+   bronze tone instead (5.93:1). :where() contributes zero specificity, so this
+   overrides cleanly without !important. */
+.on-paper :where(a, button, [tabindex]):focus-visible {
+  outline-color: var(--color-amber-800);
 }
 
 /* Honor reduced-motion: stand down the pinging dots, fades, and smooth scroll */
