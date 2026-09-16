@@ -105,6 +105,7 @@ const deskFacts = [
 
 const navLinks = [
   { href: "#marketthis", label: "MarketThis" },
+  { href: "#day-job", label: "Day job" },
   { href: "#also-building", label: "Also Shipped" },
   { href: "#about", label: "About" },
   { href: "#contact", label: "Contact" },
@@ -417,11 +418,12 @@ function Hero() {
 
             <ProductCtas placement="hero" />
 
-            <p className="mt-6 text-sm font-500 text-mist-400">
-              I&apos;m Ed Senay, building MarketThis. I run the data and ML
-              platform behind{" "}
+            <p className="mt-6 text-sm font-500 text-mist-400 max-w-xl">
+              I&apos;m Ed Senay, building MarketThis. By day I run the data and
+              AI platform behind{" "}
               <span className="font-700 text-paper-50">$200M+/yr</span> in ad
-              spend at Scale Marketing.
+              spend at Scale Marketing, and the MCP fleet that puts all of it
+              in Claude.
             </p>
           </div>
 
@@ -504,15 +506,54 @@ function MarketThisSpotlight() {
   );
 }
 
-const credibilityStats = [
-  { value: "$200M+", label: "Annual ad spend guided by my team's data and ML platform" },
-  { value: "20%", label: "YoY growth at the agency where I lead data ops" },
-  { value: "12", label: "Engineers, ML scientists, designers on my team" },
+// Every count below was taken from the platform codebase on 2026-09-15. The
+// repo is private, so the figures are stated rather than linked; refresh them
+// before republishing. 50+ integrations and 30 clients: its architecture
+// overview. 150+ DAGs: 153 files under terraform_script/dags define a DAG.
+// 48 connectors: mcp-servers/connector_catalog.json (47 carry a deployable
+// task definition, the 48th is proxied from another service). The team size
+// is Ed's own figure and matches the ~14 humans committing in the last year.
+const platformLedger = [
+  { value: "50+", label: "Ad platforms, CRMs, and media systems pulled nightly" },
+  { value: "150+", label: "Airflow DAGs feeding one S3, Glue, and Athena lake" },
+  { value: "30", label: "Clients reporting from that lake in Tableau, and now Claude" },
+  { value: "48", label: "MCP connectors putting the warehouse in Claude for the agency" },
+  { value: "12", label: "Engineers, ML scientists, and designers on the team" },
 ];
 
-function CredibilityBand() {
+const platformLayers = [
+  {
+    label: "Pipelines",
+    title: "Every dollar of spend, landed nightly.",
+    description:
+      "Airflow on MWAA runs containerized pulls from Google, Meta, Microsoft, TikTok, the DSPs, MediaOcean, and client CRMs into per-client Parquet, partitioned by day.",
+  },
+  {
+    label: "Warehouse",
+    title: "One lake, queried in SQL.",
+    description:
+      "S3 cataloged by Glue and queried in Athena, with Tableau on top for client reporting. Terraform underneath, CodePipeline to ship it, and a validation framework that catches bad data before a client does.",
+  },
+  {
+    label: "MCP fleet",
+    title: "The whole warehouse, in Claude.",
+    description:
+      "48 MCP connectors on ECS give every account team live reporting, ad-platform data, competitive intelligence, and planning tools from Claude. Shared auth, PII scrubbing, deploys that roll back on their own.",
+  },
+  {
+    label: "Agents",
+    title: "The model drafts. A person signs off.",
+    description:
+      "Claude agents on Bedrock draft billing reconciliations, traffic instructions, and media plans, then hand them to a human for review. MarketThis runs on the same rule: propose, approve, execute.",
+  },
+];
+
+function DayJob() {
   return (
-    <section className="on-paper relative overflow-hidden bg-paper-50 text-inkwell-900">
+    <section
+      id="day-job"
+      className="on-paper relative overflow-hidden bg-paper-50 text-inkwell-900"
+    >
       <div
         aria-hidden="true"
         className="absolute inset-0 opacity-[0.05] pointer-events-none"
@@ -523,37 +564,75 @@ function CredibilityBand() {
         }}
       />
       <div className="relative max-w-6xl mx-auto px-6 py-20 lg:py-28">
-        <div className="max-w-2xl mx-auto text-center mb-14">
-          <Eyebrow tone="light" className="mb-4">
-            Why I can build this
-          </Eyebrow>
-          <h2 className="font-display font-700 text-balance text-2xl sm:text-3xl text-inkwell-900 leading-snug">
-            By day I run the data and ML platform behind{" "}
-            <a
-              href="https://www.scale-marketing.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline decoration-inkwell-900/25 underline-offset-2 hover:decoration-amber-800 transition-colors duration-200"
-            >
-              Scale Marketing
-            </a>
-            &apos;s ad spend. MarketThis is that machinery, rebuilt as a
-            trading desk any team can run from $300 a month.
-          </h2>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start mb-16 lg:mb-20">
+          <div className="lg:col-span-7">
+            <Eyebrow tone="light" className="mb-4">
+              Why I can build this
+            </Eyebrow>
+            <h2 className="font-display font-700 text-balance text-2xl sm:text-3xl text-inkwell-900 leading-snug">
+              By day I run the data and AI platform behind{" "}
+              <a
+                href="https://www.scale-marketing.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline decoration-inkwell-900/25 underline-offset-2 hover:decoration-amber-800 transition-colors duration-200"
+              >
+                Scale Marketing
+              </a>
+              &apos;s ad spend. MarketThis is that desk, rebuilt so any team
+              can run it from $300 a month.
+            </h2>
+            <p className="mt-6 text-inkwell-600 leading-relaxed max-w-xl">
+              Most of it lives in one codebase I have shipped to since 2022:
+              pipelines from 50+ platforms, a warehouse 30 clients report
+              from, a fleet of MCP connectors that puts all of it in Claude,
+              and agents that draft the paperwork. Nothing on this page is
+              theory. It is the day job.
+            </p>
+          </div>
+
+          {/* One dominant figure with a mono ledger under it, not a row of
+              equal tiles: the $200M is the claim, the rows are the receipt.
+              DOM order stays dt then dd; the flex order swaps them visually. */}
+          <div className="lg:col-span-5">
+            <p className="font-display font-800 leading-[0.95] tracking-tight text-inkwell-900 text-6xl sm:text-7xl">
+              $200M+
+            </p>
+            <p className="mt-3 font-mono text-xs font-500 tracking-wide uppercase text-inkwell-500 leading-relaxed">
+              Annual ad spend measured on the platform
+            </p>
+            <dl className="mt-8 border-t border-inkwell-900/15">
+              {platformLedger.map((row) => (
+                <div
+                  key={row.label}
+                  className="flex items-baseline gap-4 py-3 border-b border-inkwell-900/10"
+                >
+                  <dt className="order-2 font-mono text-[11px] font-500 tracking-wide uppercase text-inkwell-600 leading-relaxed">
+                    {row.label}
+                  </dt>
+                  <dd className="order-1 shrink-0 w-14 font-display font-700 text-lg text-inkwell-900 tabular-nums">
+                    {row.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-y-14 md:gap-y-0">
-          {credibilityStats.map((s, i) => (
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+          {platformLayers.map((layer, i) => (
             <div
-              key={s.label}
-              className={`text-center px-4 md:px-8 ${
-                i > 0 ? "md:border-l md:border-inkwell-900/10" : ""
-              }`}
+              key={layer.label}
+              className="rounded-lg bg-white/60 border border-inkwell-900/10 p-6"
             >
-              <p className="font-display font-800 leading-[0.95] tracking-tight text-inkwell-900 text-5xl sm:text-6xl lg:text-7xl">
-                {s.value}
+              <p className="font-mono text-[11px] font-500 tracking-[0.18em] uppercase text-amber-800 mb-4">
+                <span className="text-inkwell-500">0{i + 1} /</span> {layer.label}
               </p>
-              <p className="mt-5 font-mono text-xs font-500 tracking-wide uppercase text-inkwell-500 max-w-[26ch] mx-auto leading-relaxed">
-                {s.label}
+              <h3 className="font-display font-700 text-lg text-inkwell-900 mb-2">
+                {layer.title}
+              </h3>
+              <p className="text-sm text-inkwell-600 leading-relaxed">
+                {layer.description}
               </p>
             </div>
           ))}
@@ -737,7 +816,7 @@ function About() {
             <div className="max-w-[280px]">
               {/* Portrait is duotoned into the site's own ink/paper tokens, so the
                   one light tile in this dark section rhymes with the inverted
-                  CredibilityBand instead of reading as a pasted-in white photo.
+                  DayJob band instead of reading as a pasted-in white photo.
                   Chicago, IL already appears in the caption below, so the old
                   overlay label is gone rather than restyled for the light field. */}
               <div className="relative w-full aspect-[4/5] rounded-lg overflow-hidden bg-paper-100 border border-white/10">
@@ -769,29 +848,29 @@ function About() {
           <div className="md:col-span-3 flex flex-col gap-5">
             <p className="text-mist-200 leading-relaxed">
               I&apos;m building MarketThis because I watched the problem from
-              the inside. By day I lead data operations at Scale Marketing, a
-              media agency growing 20% YoY on $200M+ of annual ad spend. My
-              team of engineers, ML scientists, and designers builds the
-              pipelines, ML models, and platforms that make that work.
-              Airflow, EKS, production media mix models, causal analysis, the
-              full stack.
+              the inside. By day I&apos;m Director of Data Operations at Scale
+              Marketing, a media agency growing 20% a year on $200M+ of annual
+              ad spend. My team of 12 engineers, ML scientists, and designers
+              owns the platform above: the Airflow pipelines and the Athena
+              warehouse, the production media mix models, the MCP fleet, and
+              the agents. I lead it and still ship code to it most days.
             </p>
             <p className="text-mist-200 leading-relaxed">
-              The pattern I keep seeing: founders who can ship a product but
-              have no marketing playbook, and companies with real ad budgets
-              and no infrastructure to act on what their data is telling them.
-              They patch it together across five tools and a Notion doc.
-              MarketThis is the desk I wish they all had.
+              The pattern I keep seeing: teams with real ad budgets and no
+              infrastructure to act on what their data is telling them, and
+              founders who can ship a product but have no marketing playbook.
+              They patch it together across five tools, a retainer, and a
+              Notion doc. MarketThis is the desk I wish they all had.
             </p>
             <div className="mt-3 p-5 rounded-lg bg-amber-500/[0.08] border border-amber-400/20">
               <p className="font-mono text-[11px] font-500 tracking-[0.18em] uppercase text-amber-300 mb-2">
                 Currently
               </p>
               <p className="text-sm text-mist-200 leading-relaxed">
-                Building MarketThis from zero as a data-ops founder. It gets
-                my focus. ChiTix and ValidateThis run themselves. Open to
-                advisory conversations on data ops, attribution, and ML at
-                scale.
+                Building MarketThis from zero as a data-ops founder, and
+                running the platform at Scale by day. ChiTix and ValidateThis
+                run themselves. Open to advisory conversations on data
+                platforms, MCP fleets, attribution, and ML at scale.
               </p>
             </div>
 
@@ -914,7 +993,7 @@ export default function App() {
       <Header />
       <Hero />
       <MarketThisSpotlight />
-      <CredibilityBand />
+      <DayJob />
       <GetStarted />
       <AlsoBuilding />
       <About />
